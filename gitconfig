@@ -1,0 +1,25 @@
+[alias]
+	st = status -sb
+	co = checkout
+	br = branch
+	save = "!git add . && git commit -m ':construction: WIP' -n"
+	cleangone = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
+	cleanup = "!git branch | grep -v 'master' | xargs git branch -D"
+	cm = commit -m
+[user]
+	name = Marais Rossouw
+	email = me@maraisr.com
+	signingkey = 09502A2D
+[core]
+	autocrlf = input
+	eol = ef
+	editor = vim
+	ignorecase = false
+[rerere]
+	enabled = true
+[log]
+	date = relative
+[format]
+	pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
+[difftool]
+	prompt = false
