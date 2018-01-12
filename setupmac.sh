@@ -11,3 +11,8 @@ defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 defaults write -g ApplePressAndHoldEnabled -bool false
 
+brew update
+brew install watch
+brew install vim --override-system-vi
+
+sudo pip install boto boto3 jinja2
