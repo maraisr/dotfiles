@@ -26,4 +26,4 @@
 [difftool]
 	prompt = false
 [pull]
-	pull = rebase
+	rebase = true
