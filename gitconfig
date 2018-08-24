@@ -2,6 +2,7 @@
 	st = status -sb
 	co = checkout
 	br = branch
+	ft = fetch -aup
 	save = "!git add . && git commit -m ':construction: WIP' -n"
 	cleangone = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 	cleanup = "!git branch | grep -v 'master' | xargs git branch -D"
