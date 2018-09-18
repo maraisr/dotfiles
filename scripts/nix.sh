@@ -6,8 +6,8 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 # Download my fonts
 declare -a fonts=(
-        "https://github.com/powerline/fonts/raw/master/FiraMono/FuraMono-Regular%20Powerline.otf"
-        "https://github.com/tonsky/FiraCode/raw/master/distr/otf/FiraCode-Retina.otf"
+        "https://raw.githubusercontent.com/powerline/fonts/master/FiraMono/FuraMono-Regular%20Powerline.otf"
+        "https://raw.githubusercontent.com/tonsky/FiraCode/master/distr/otf/FiraCode-Retina.otf"
     )
 
 for fontUrl in "${fonts[@]}"
