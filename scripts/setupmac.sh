@@ -18,3 +18,6 @@ brew install openssl jq yq fish watch
 brew upgrade
 
 sudo pip install boto boto3 jinja2
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
