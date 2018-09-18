@@ -17,7 +17,7 @@ set smartindent
 set showmode
 set showmatch
 set noswapfile
-set formatoptions=l 
+set formatoptions=l
 set autoread
 set ruler
 set backspace=indent,eol,start
