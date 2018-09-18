@@ -5,7 +5,7 @@ brew update
 brew upgrade
 
 brew install vim --override-system-vi
-brew install openssl jq yq fish watch
+brew install git openssl jq yq fish watch
 
 sudo pip install boto boto3 jinja2
 
