@@ -5,6 +5,8 @@ filetype plugin on
 
 syntax on
 
+let mapleader = ","
+
 set nocompatible
 set encoding=utf-8
 set hidden
@@ -14,21 +16,29 @@ set number
 set smartindent
 set showmode
 set showmatch
-set hlsearch
-set incsearch
 set noswapfile
 set formatoptions=l 
 set autoread
 set ruler
 set backspace=indent,eol,start
 set title
-set nobackup
-set list
-set listchars=tab:\│\ ,eol:↲
-set listchars+=nbsp:␣
-set listchars+=trail:•
-set listchars+=extends:⟩
-set listchars+=precedes:⟨
+set wrap						" Soft wrap lines
+set lbr							" Better line breaks when wrapping
+
+set list						" show whitespace chars
+set listchars=tab:\│\ ,eol:↲				" Bars for tabs, show eol chars
+set listchars+=nbsp:␣					" Show nonbreaking spaces
+set listchars+=trail:•					" Highlight trailing whitespace
+set listchars+=extends:⟩				" Char to show when no wrap but text extends right
+set listchars+=precedes:⟨				" Char to show when no wrap but text extends left
+
+set incsearch						" Search more like you would in browsers
+set ignorecase						" Ignores case when searching
+set smartcase						" Be smart about searching
+set hlsearch						" Highlight searches
+set magic						" Regex in searches
+
+set lazyredraw						" Don't redraw until i've finished with my commands
 
 set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
 
@@ -49,16 +59,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
     Plug 'vim-airline/vim-airline'
-        function! StatusLineFileSize()
-            let size = getfsize(expand('%%:p'))
-            if (size < 1024)
-                return size . 'b '
-            else
-                let size = size / 1024
-                return size . 'k '
-            endif
-        endfunction
-    
+
     Plug 'vim-airline/vim-airline-themes'
         let g:airline_theme='luna'
     " }}}
