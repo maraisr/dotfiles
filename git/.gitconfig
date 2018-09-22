@@ -9,8 +9,8 @@
 	cm = commit -m
 [user]
 	name = Marais Rossouw
-	email = me@maraisr.com
-	signingkey = 09502A2D
+	email = hi@marais.io
+	signingkey = B87842CB66A230FF
 [commit]
 	gpgsign = true
 [core]
