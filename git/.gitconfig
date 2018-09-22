@@ -10,7 +10,7 @@
 [user]
 	name = Marais Rossouw
 	email = hi@marais.io
-	signingkey = B87842CB66A230FF
+	signingkey = 2FACFD47AF4D59A4
 [commit]
 	gpgsign = true
 [core]
