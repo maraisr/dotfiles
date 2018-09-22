@@ -20,6 +20,8 @@ defaults write -g NSNavPanelExpandedStateForSaveMode -bool true && \
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 defaults write -g ApplePressAndHoldEnabled -bool false
+defaults write -g InitialKeyRepeat -int 10
+defaults write -g KeyRepeat -int 1
 
 ./nix.sh # Runs my *nix things
 ./link.sh # Link all my config files into this home folder
