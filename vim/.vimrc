@@ -25,6 +25,8 @@ set backspace=indent,eol,start				" Allow over backspaceing over everthing in IN
 set title						" Updates the window title
 set history=500						" Keep 100 lines of command history
 
+set tabstop=4
+
 set wrap						" Soft wrap lines
 set lbr							" Better line breaks when wrapping
 set textwidth=120					" Wrap text at 120
@@ -55,6 +57,25 @@ autocmd BufRead,BufNewFile * setlocal signcolumn=yes
 
 call plug#begin('~/.vim/plugged')
 
+	" Nav {{{
+	Plug 'scrooloose/nerdtree'
+		autocmd vimenter * NERDTree " Start NerdTree when vim starts
+		let NERDTreeShowHidden=1
+		let NERDTreeIgnore=[	'\.git$',
+					\ '\.svn$',
+					\ '\.project$',
+					\ '\.settings$',
+					\ '\.buildpath$',
+					\ '\._.+$',
+					\ '\.git_externals$',
+					\ '\.gitignore',
+					\ '\.gitkeep',
+					\'\.DS_Store' ]
+		let NERDTreeMinimalUI=1
+		let NERDTreeShowBookmarks=1
+		let NERDTreeShowLineNumbers=1
+	" }}}
+
     " Refactor {{{
     Plug 'peterrincker/vim-argumentative'
     " }}}
@@ -77,7 +98,25 @@ call plug#begin('~/.vim/plugged')
     Plug 'leafgarland/typescript-vim'
     Plug 'jelera/vim-javascript-syntax'
     Plug 'pangloss/vim-javascript'
-    Plug 'gorodinskiy/vim-coloresque'
+    Plug 'gorodinskiy/vim-coloresque' " CSS colour preview
+    Plug 'oranget/vim-csharp'
+	Plug 'posva/vim-vue'
+	Plug 'stephpy/vim-yaml'
+	Plug 'chase/vim-ansible-yaml' " YAML addtions for Aansible
+	Plug 'elzr/vim-json'
+		au! BufRead,BufNewFile *.json set filetype=jso
+		augroup json_autocmd
+			autocmd!
+			autocmd FileType json set autoindent
+			autocmd FileType json set formatoptions=tcq2l
+			autocmd FileType json set foldmethod=syntax
+		augroup END
     " }}}
 
 call plug#end()
+
+""" Mappings {{{
+
+nnoremap <Leader>tw	mt:%s@\s\+$@@ge<CR>`t:delm t<CR>:noh<CR>:let @/ = ""<CR> " Trim whitespace
+
+""" }}}
