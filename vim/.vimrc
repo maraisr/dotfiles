@@ -103,15 +103,14 @@ call plug#begin('~/.vim/plugged')
     " }}}
 
     " Langauges {{{
-    Plug 'leafgarland/typescript-vim'
-    Plug 'jelera/vim-javascript-syntax'
-    Plug 'pangloss/vim-javascript'
+    Plug 'leafgarland/typescript-vim' " Typescript
+    Plug 'jelera/vim-javascript-syntax' " Javascript extentions
+    Plug 'pangloss/vim-javascript' "Javascript
     Plug 'gorodinskiy/vim-coloresque' " CSS colour preview
-    Plug 'oranget/vim-csharp'
-	Plug 'posva/vim-vue'
-	Plug 'stephpy/vim-yaml'
+	Plug 'posva/vim-vue' " vue single files
+	Plug 'stephpy/vim-yaml' " YAML
 	Plug 'chase/vim-ansible-yaml' " YAML addtions for Aansible
-	Plug 'elzr/vim-json'
+	Plug 'elzr/vim-json' " JSON
 		au! BufRead,BufNewFile *.json set filetype=jso
 		augroup json_autocmd
 			autocmd!
@@ -119,6 +118,7 @@ call plug#begin('~/.vim/plugged')
 			autocmd FileType json set formatoptions=tcq2l
 			autocmd FileType json set foldmethod=syntax
 		augroup END
+    Plug 'oranget/vim-csharp' " C#
     " }}}
 
 call plug#end()
