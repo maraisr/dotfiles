@@ -59,7 +59,8 @@ call plug#begin('~/.vim/plugged')
 
 	" Nav {{{
 	Plug 'scrooloose/nerdtree'
-		autocmd vimenter * NERDTree " Start NerdTree when vim starts
+		nnoremap <Leader>sit :NERDTreeFind<cr>
+
 		let NERDTreeShowHidden=1
 		let NERDTreeIgnore=[	'\.git$',
 					\ '\.svn$',
@@ -74,7 +75,14 @@ call plug#begin('~/.vim/plugged')
 		let NERDTreeMinimalUI=1
 		let NERDTreeShowBookmarks=1
 		let NERDTreeShowLineNumbers=1
-	" }}}
+
+		autocmd vimenter * NERDTree " Start NerdTree when vim starts
+
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'junegunn/fzf.vim'
+		nnoremap <Leader>o :Files<cr>
+		nnoremap <Leader>b :Buffers<cr>
+" }}}
 
     " Refactor {{{
     Plug 'peterrincker/vim-argumentative'
