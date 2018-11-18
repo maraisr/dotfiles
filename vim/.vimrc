@@ -5,7 +5,7 @@ filetype plugin on
 
 syntax on
 
-let mapleader = ","
+let mapleader = "\<Space>"
 
 set nocompatible
 set encoding=utf-8
@@ -75,8 +75,6 @@ call plug#begin('~/.vim/plugged')
 		let NERDTreeMinimalUI=1
 		let NERDTreeShowBookmarks=1
 		let NERDTreeShowLineNumbers=1
-
-		autocmd vimenter * NERDTree " Start NerdTree when vim starts
 
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
