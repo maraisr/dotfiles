@@ -18,3 +18,6 @@ do
         Darwin*) curl -fLo ${HOME}/Library/Fonts/${fontName} --create-dirs ${fontUrl}
     esac
 done
+
+# Pip things
+pip install boto boto3 jinja2
