@@ -26,14 +26,36 @@ if [[ ! -x /usr/local/bin/brew ]]; then
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+# Setup brew
+
 brew tap caskroom/cask
 brew tap Homebrew/bundle
 brew update
 brew upgrade
 
-brew install vim --override-system-vi
-brew install git openssl jq yq watch iproute2mac
+# Install CLI tooling
 
+brew install vim --override-system-vi
+brew install \
+	git \
+	openssl \
+	jq \
+	yq \
+	watch \
+	iproute2mac
+
+# Change shell to fish
+brew install fish
+chsh -s $(which fish)
+
+# Install runtimes
+brew install \
+	node
+
+brew cask install \
+	java
+
+# Install Desktop Applications
 brew cask install \
 		google-chrome \
 		whatsapp \
@@ -43,14 +65,13 @@ brew cask install \
 		visual-studio-code \
 		1password
 
-# Change shell to fish
-brew install fish
-chsh -s $(which fish)
-
 # -- Mac AppStore --
 brew install mas
 
 mas install 1384080005 ## Tweetbot
+
+# Finally; we cleanup
+brew cleanup; brew prune
 
 # -----------------------------------
 # [Mac] General UI/UX
