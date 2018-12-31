@@ -1,6 +1,25 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-xcode-select --install
+# Ask for the sudo password up front
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# -- X Code --
+
+if ! $(xcode-select -p &>/dev/null); then
+  xcode-select --install &>/dev/null
+
+  # Wait until the Xcode Command Line Tools are installed
+  until $(xcode-select -p &>/dev/null); do
+    sleep 5
+  done
+fi
+
+if ! $(sudo xcodebuild -license status); then
+  sudo xcodebuild -license accept
+fi
 
 # -- Homebrew --
 if [[ ! -x /usr/local/bin/brew ]]; then
@@ -8,11 +27,12 @@ if [[ ! -x /usr/local/bin/brew ]]; then
 fi
 
 brew tap caskroom/cask
+brew tap Homebrew/bundle
 brew update
 brew upgrade
 
 brew install vim --override-system-vi
-brew install git openssl jq yq fish watch iproute2mac
+brew install git openssl jq yq watch iproute2mac
 
 brew cask install \
 		google-chrome \
@@ -22,6 +42,10 @@ brew cask install \
 		iterm2 \
 		visual-studio-code \
 		1password
+
+# Change shell to fish
+brew install fish
+chsh -s $(which fish)
 
 # -- Mac AppStore --
 brew install mas
@@ -35,11 +59,17 @@ mas install 1384080005 ## Tweetbot
 # Use DarkMode
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
+# Set apperance
+defaults write NSGlobalDomain AppleAquaColorVariant -int 1
+
+# Set highlight color to blue
+defaults write NSGlobalDomain AppleHighlightColor -string '0.709800 0.835300 1.000000'
+
+# Set sidebar icon size to small
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
+
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
-
-# Save to disk (not to iCloud) by default
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 # Automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
@@ -56,6 +86,10 @@ defaults write com.apple.menuextra.battery ShowPercent YES
 
 # Set clock format
 defaults write com.apple.menuextra.clock DateFormat -string "EEE MMM d H:mm:ss"
+
+# Play iOS charging sound when power is connected
+defaults write com.apple.PowerChime ChimeOnAllHardware -bool true && \
+  open /System/Library/CoreServices/PowerChime.app &
 
 # -----------------------------------
 # [Mac] Finder
@@ -77,12 +111,27 @@ defaults write com.apple.finder ShowStatusBar -bool true
 # Finder: show path bar
 defaults write com.apple.finder ShowPathbar -bool true
 
-# Don't save .DS_Store files to Network Shares
+# Don't save .DS_Store files to Network Shares + USB
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Use list view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+# Save to disk (not to iCloud) by default
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+# Default search scope
+# This Mac       : `SCev`
+# Current Folder : `SCcf`
+# Previous Scope : `SCsp`
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# Arrange by
+# Kind, Name, Application, Date Last Opened,
+# Date Added, Date Modified, Date Created, Size, Tags, None
+defaults write com.apple.finder FXPreferredGroupBy -string "Kind"
 
 # -----------------------------------
 # [Mac] Keyboard
@@ -133,8 +182,14 @@ defaults write com.apple.dock mru-spaces -bool true
 # Remove app bounce
 defaults write com.apple.dock no-bouncing -bool true
 
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
+
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
+
+# Turn off dock magnification
+defaults write com.apple.dock magnification -bool false
 
 # Disable Dashboard
 defaults write com.apple.dashboard mcx-disabled -bool true
@@ -221,9 +276,7 @@ for app in "Dock" \
 	"Terminal" \
 	"SystemUIServer" \
 	"Finder" \
-	"cfprefsd" \
-	"Tweetbot" \
-	"Google Chrome"; do
+	"cfprefsd"; do
 	killall "${app}" &> /dev/null
 done
 
