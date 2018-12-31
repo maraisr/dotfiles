@@ -48,8 +48,8 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-# Disable transparency in the menu bar and elsewhere on Yosemite
-defaults write com.apple.universalaccess reduceTransparency -bool true
+# Enable transparency in the menu bar and elsewhere
+defaults write com.apple.universalaccess reduceTransparency -bool false
 
 # Show battery percentage
 defaults write com.apple.menuextra.battery ShowPercent YES
