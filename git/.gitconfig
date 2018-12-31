@@ -2,17 +2,15 @@
 	st = status -sb
 	co = checkout
 	br = branch
-	ft = fetch -aup
+	ft = fetch -aupt
 	save = "!git add . && git commit -m ':construction: WIP' -n"
 	cleangone = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
-	cleanup = "!git branch | grep -v 'master' | xargs git branch -D"
+	cleanup = "!git branch | grep -v 'master' | xargs git branch -D; git tag -l | xargs git tag -d; git ft -t"
 	cm = commit -m
 [user]
 	name = Marais Rossouw
 	email = hi@marais.io
 	signingkey = 2FACFD47AF4D59A4
-[commit]
-	gpgsign = true
 [core]
 	autocrlf = input
 	eol = ef
@@ -28,3 +26,5 @@
 	prompt = false
 [pull]
 	rebase = true
+[push]
+	default = current
