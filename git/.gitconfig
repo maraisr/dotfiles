@@ -3,10 +3,11 @@
 	co = checkout
 	br = branch
 	ft = fetch -aupt
+	cm = commit -m
+	amend = commit --amend --date now --no-edit
 	save = "!git add . && git commit -m ':construction: WIP' -n"
 	cleangone = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
-	cleanup = "!git branch | grep -v 'master' | xargs git branch -D; git tag -l | xargs git tag -d; git ft -t"
-	cm = commit -m
+	cleanup = "!git branch | xargs git branch -D; git tag -l | xargs git tag -d; git ft -t"
 [user]
 	name = Marais Rossouw
 	email = hi@marais.io
@@ -18,13 +19,15 @@
 	ignorecase = false
 [rerere]
 	enabled = true
+[pull]
+	rebase = true
+[push]
+	default = current
+[rebase]
+	autosquash = true
 [log]
 	date = relative
 [format]
 	pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
 [difftool]
 	prompt = false
-[pull]
-	rebase = true
-[push]
-	default = current
