@@ -50,7 +50,8 @@ chsh -s $(which fish)
 
 # Install runtimes
 brew install \
-	node
+	node \
+	yarn
 
 brew cask install \
 	java
