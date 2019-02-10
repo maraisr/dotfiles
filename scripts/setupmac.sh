@@ -42,7 +42,8 @@ brew install \
 	jq \
 	yq \
 	watch \
-	iproute2mac
+	iproute2mac \
+	bat
 
 # Change shell to fish
 brew install fish
