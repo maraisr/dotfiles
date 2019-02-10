@@ -35,7 +35,7 @@ brew upgrade
 
 # Install CLI tooling
 
-brew install vim --override-system-vi
+brew install vim
 brew install \
 	git \
 	openssl \
@@ -43,6 +43,7 @@ brew install \
 	yq \
 	watch \
 	iproute2mac \
+	telnet \
 	bat
 
 # Change shell to fish
@@ -70,7 +71,9 @@ brew cask install \
 # -- Mac AppStore --
 brew install mas
 
-mas install 1384080005 ## Tweetbot
+mas install 1384080005		## Tweetbot 3
+mas install 1333542190		##1Password 7
+mas install 585829637		## Todoist
 
 # Finally; we cleanup
 brew cleanup; brew prune
