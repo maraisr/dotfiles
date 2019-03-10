@@ -10,13 +10,15 @@
 	cleanup = "!git branch | xargs git branch -D; git tag -l | xargs git tag -d; git ft -t"
 [user]
 	name = Marais Rossouw
-	email = hi@marais.io
+	email = me@maraisr.com
 	signingkey = 2FACFD47AF4D59A4
 [core]
 	autocrlf = input
 	eol = ef
 	editor = vim
 	ignorecase = false
+[commit]
+	gpgsign = true
 [rerere]
 	enabled = true
 [pull]
