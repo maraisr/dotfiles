@@ -44,7 +44,8 @@ brew install \
 	watch \
 	iproute2mac \
 	telnet \
-	bat
+	bat \
+	watchman
 
 # Change shell to fish
 brew install fish
@@ -76,7 +77,7 @@ mas install 1333542190		##1Password 7
 mas install 585829637		## Todoist
 
 # Finally; we cleanup
-brew cleanup; brew prune
+brew cleanup
 
 # -----------------------------------
 # [Mac] General UI/UX
