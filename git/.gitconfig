@@ -17,19 +17,24 @@
 	eol = ef
 	editor = vim
 	ignorecase = false
-[commit]
-	gpgsign = true
-[rerere]
-	enabled = true
-[pull]
-	rebase = true
-[push]
-	default = current
-[rebase]
-	autosquash = true
+	excludesfile = ~/.gitignore-global
 [log]
 	date = relative
 [format]
 	pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
 [difftool]
 	prompt = false
+[commit]
+	gpgsign = true
+[rerere]
+	enabled = true
+[push]
+	default = current
+[pull]
+	rebase = true
+[rebase]
+	autosquash = true
+[branch]
+	autosetuprebase = always
+[receive]
+	fsckObjects = true
