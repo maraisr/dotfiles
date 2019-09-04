@@ -7,7 +7,8 @@
 	amend = commit --amend --date now --no-edit
 	save = "!git add . && git commit -m ':construction: WIP' -n"
 	cleangone = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
-	cleanup = "!git branch | xargs git branch -D; git tag -l | xargs git tag -d; git ft -t"
+	cleanup = "!git branch | xargs git branch -D; git tag -l | xargs git tag -d; git ft -t; git gc; git prune"
+	changed = "diff --dirstat=files,0"
 [user]
 	name = Marais Rossouw
 	email = me@maraisr.com
@@ -38,3 +39,8 @@
 	autosetuprebase = always
 [receive]
 	fsckObjects = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
