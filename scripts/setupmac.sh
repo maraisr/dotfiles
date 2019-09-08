@@ -39,6 +39,7 @@ brew install vim
 brew install \
 	git \
 	openssl \
+	fzf \
 	jq \
 	yq \
 	watch \

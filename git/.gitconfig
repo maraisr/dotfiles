@@ -4,11 +4,27 @@
 	br = branch
 	ft = fetch -aupt
 	cm = commit -m
+
+	# Commits everything staged
 	amend = commit --amend --date now --no-edit
+
+	# Git commit, and go home
 	save = "!git add . && git commit -m ':construction: WIP' -n"
+
+	# Cleaning
 	cleangone = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
 	cleanup = "!git branch | xargs git branch -D; git tag -l | xargs git tag -d; git ft -t; git gc; git prune"
-	changed = "diff --dirstat=files,0"
+
+	## Misc
+
+	# Fuzzy search git commit messages
+	fzf = "!git log --color=never --format='%h%d %s %cr' | fzf | awk '{print $1}' | git show --stdin"
+
+	# Gives me a list of directories that are touched
+	changed = diff --dirstat=files,0
+
+	# List contributors with number of commits
+	contributors = shortlog --summary --numbered
 [user]
 	name = Marais Rossouw
 	email = me@maraisr.com
@@ -19,6 +35,8 @@
 	editor = vim
 	ignorecase = false
 	excludesfile = ~/.gitignore-global
+[gui]
+	spellingdictionary = en
 [log]
 	date = relative
 [format]
