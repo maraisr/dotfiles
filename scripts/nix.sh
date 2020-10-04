@@ -25,5 +25,5 @@ done
 # Pip things
 pip install boto boto3 jinja2
 
-# Make `Sites` directory
-mkdir -p "$HOME/Sites"
+# Make `Dev` directory
+mkdir -p "$HOME/Dev"
