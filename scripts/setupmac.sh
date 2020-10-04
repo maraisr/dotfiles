@@ -28,8 +28,8 @@ fi
 
 # Setup brew
 
-brew tap caskroom/cask
-brew tap Homebrew/bundle
+brew tap homebrew/cask
+brew tap homebrew/bundle
 brew update
 brew upgrade
 
@@ -74,8 +74,17 @@ brew cask install \
 brew install mas
 
 mas install 1384080005		## Tweetbot 3
-mas install 1333542190		##1Password 7
+mas install 1333542190		## 1Password 7
 mas install 585829637		## Todoist
+
+# -- Setup GPG --
+
+brew install \
+	gpg2 \
+	gnupg \
+	pinentry-mac
+
+echo "pinentry-program /usr/local/bin/pinentry-mac" > ~/.gnupg/gpg-agent.conf
 
 # Finally; we cleanup
 brew cleanup
