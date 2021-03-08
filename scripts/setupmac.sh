@@ -28,8 +28,6 @@ fi
 
 # Setup brew
 
-brew tap homebrew/cask
-brew tap homebrew/bundle
 brew update
 brew upgrade
 
@@ -50,18 +48,11 @@ brew install \
 
 # Change shell to fish
 brew install fish
+# echo $(which fish) >> /etc/shells
 chsh -s $(which fish)
 
-# Install runtimes
-brew install \
-	node \
-	yarn
-
-brew cask install \
-	java
-
 # Install Desktop Applications
-brew cask install \
+brew install --cask \
 		google-chrome \
 		whatsapp \
 		spotify \

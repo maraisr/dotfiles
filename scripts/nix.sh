@@ -26,4 +26,4 @@ done
 pip install boto boto3 jinja2
 
 # Make `Dev` directory
-mkdir -p "$HOME/Dev"
+mkdir -p "$HOME/dev"
