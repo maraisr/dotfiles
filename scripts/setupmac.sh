@@ -35,6 +35,8 @@ brew upgrade
 
 brew install vim
 brew install \
+	curl \
+	wget \
 	git \
 	openssl \
 	fzf \
@@ -54,12 +56,14 @@ chsh -s $(which fish)
 # Install Desktop Applications
 brew install --cask \
 		google-chrome \
+		firefox \
 		whatsapp \
 		spotify \
 		spotmenu \
 		iterm2 \
 		visual-studio-code \
-		1password
+		1password \
+		notion
 
 # -- Mac AppStore --
 brew install mas
