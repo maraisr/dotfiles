@@ -1,7 +1,6 @@
 #!/bin/bash
 
-ln -s $(pwd)/tmux/.tmux.conf ~
-ln -s $(pwd)/vim/.vimrc ~
+ln -s $(pwd)/.vimrc ~
 
-cp -f $(pwd)/git/.gitconfig ~
-cp -f $(pwd)/git/.gitignore-global ~
+cp -f $(pwd)/.gitconfig ~
+cp -f $(pwd)/.gitignore-global ~

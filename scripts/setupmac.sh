@@ -22,8 +22,8 @@ if ! $(sudo xcodebuild -license status); then
 fi
 
 # -- Homebrew --
-if [[ ! -x /usr/local/bin/brew ]]; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if [[ ! -x /opt/homebrew/bin/brew ]]; then
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # Setup brew
@@ -70,7 +70,6 @@ brew install mas
 
 mas install 1384080005		## Tweetbot 3
 mas install 1333542190		## 1Password 7
-mas install 585829637		## Todoist
 
 # -- Setup GPG --
 
