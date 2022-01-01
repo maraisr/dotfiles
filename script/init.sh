@@ -40,7 +40,7 @@ brew install \
 	curl \
 	wget \
 	gh \
-	delta \
+	git-delta \
 	git \
 	openssl \
 	fzf \
@@ -53,4 +53,5 @@ brew install \
 	watchman \
     fish \
 	gnupg \
-	pinentry-mac
+	pinentry-mac \
+	zoxide
