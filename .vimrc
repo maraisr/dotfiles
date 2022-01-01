@@ -101,13 +101,12 @@ call plug#begin('~/.vim/plugged')
     " }}}
 
     " Langauges {{{
+	Plug 'rust-lang/rust.vim' " Rust
     Plug 'leafgarland/typescript-vim' " Typescript
     Plug 'jelera/vim-javascript-syntax' " Javascript extentions
     Plug 'pangloss/vim-javascript' "Javascript
     Plug 'gorodinskiy/vim-coloresque' " CSS colour preview
-	Plug 'posva/vim-vue' " vue single files
 	Plug 'stephpy/vim-yaml' " YAML
-	Plug 'chase/vim-ansible-yaml' " YAML addtions for Aansible
 	Plug 'elzr/vim-json' " JSON
 		au! BufRead,BufNewFile *.json set filetype=jso
 		augroup json_autocmd

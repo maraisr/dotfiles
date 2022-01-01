@@ -35,14 +35,16 @@
 	editor = vim
 	ignorecase = false
 	excludesfile = ~/.gitignore-global
-[gui]
-	spellingdictionary = en
-[log]
-	date = relative
+[init]
+	defaultBranch = main
 [format]
 	pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
 [difftool]
 	prompt = false
+[gui]
+	spellingdictionary = en
+[log]
+	date = relative
 [commit]
 	gpgsign = true
 [rerere]
@@ -62,6 +64,3 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[init]
-	defaultBranch = main
-
