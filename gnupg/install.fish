@@ -1,5 +1,9 @@
 #!/usr/bin/env fish
 
+if test (uname) != Darwin
+	exit
+end
+
 mkdir -p ~/.gnupg
 test -f ~/.gnupg/gpg-agent.conf || touch ~/.gnupg/gpg-agent.conf
 

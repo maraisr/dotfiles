@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-if [ "$(uname -s)" != "Darwin" ]; then
-	exit 0
-fi
-
 set +e
 
 # Ask for the sudo password up front
@@ -51,7 +47,7 @@ brew install \
 	telnet \
 	bat \
 	watchman \
-    fish \
+	fish \
 	gnupg \
 	pinentry-mac \
 	zoxide
