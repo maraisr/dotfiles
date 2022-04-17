@@ -2,9 +2,7 @@
 
 curl -fsSL https://get.volta.sh | bash
 
-if not command -qs node
-    volta install node@latest
-end
+volta install node@latest
 
 if not command -qs corepack
     volta install corepack
