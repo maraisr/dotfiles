@@ -11,3 +11,5 @@ elif [ "$(uname)" == "Linux" ]; then
 else
     exit 0
 fi
+
+echo "Make sure to run ./script/bootstrap.fish in a new shell"

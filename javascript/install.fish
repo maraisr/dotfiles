@@ -1,13 +1,11 @@
 #!/usr/bin/env fish
 
-curl -fsSL https://get.volta.sh | bash
+curl -fsSL https://fnm.vercel.app/install | bash
 
-volta install node@latest
+fnm install latest
 
-if not command -qs corepack
-    volta install corepack
-end
+corepack enable --install-directory ~/.corepack
 
 if not command -qs pnpm
-    corepack prepare pnpm@6.22.2 --activate
+    corepack prepare pnpm@7.0.1 --activate
 end
