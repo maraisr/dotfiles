@@ -12,18 +12,13 @@ if command -qs brew
 			google-chrome \
 			firefox \
 			whatsapp \
+			discord \
 			spotify \
 			spotmenu \
 			iterm2 \
 			visual-studio-code \
 			1password \
 			notion
-
-	# AppStore
-	brew install mas
-
-	mas install 1384080005		## Tweetbot 3
-	mas install 975937182		## Fantasical
 
 	brew cleanup
 end
