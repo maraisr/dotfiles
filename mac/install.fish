@@ -23,7 +23,6 @@ if command -qs brew
 	brew install mas
 
 	mas install 1384080005		## Tweetbot 3
-	mas install 1333542190		## 1Password 7
 	mas install 975937182		## Fantasical
 
 	brew cleanup

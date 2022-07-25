@@ -2,7 +2,10 @@
 
 curl -fsSL https://fnm.vercel.app/install | bash
 
-fnm install latest
+fnm install 18
+fnm default 18
+
+mkdir -p ~/.corepack
 
 corepack enable --install-directory ~/.corepack
 
