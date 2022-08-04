@@ -1,6 +1,6 @@
 [alias]
 	st = status -sb
-	co = checkout
+	co = checkout --quiet
 	br = branch
 	ft = fetch -aupt
 	cm = commit -m
@@ -10,6 +10,8 @@
 
 	# Git commit, and go home
 	save = "!git add . && git commit -m ':construction: WIP' -n"
+	# Undo last commit
+	undo = reset --soft HEAD~
 
 	# Cleaning
 	cleangone = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D"
@@ -35,22 +37,25 @@
 	editor = vim
 	ignorecase = false
 	excludesfile = ~/.gitignore-global
+	pager = delta
 [init]
 	defaultBranch = main
 [format]
-	pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(7,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
+	pretty = format:%C(magenta)%G? %C(bold yellow)%h %<(50,trunc)%Creset%C(italic)%s%Creset%Cgreen%<(12,trunc)% cd %C(dim cyan)%aN%C(bold brightcyan)% gD% D
 [difftool]
 	prompt = false
 [gui]
 	spellingdictionary = en
 [log]
 	date = relative
+	follow = true
 [commit]
 	gpgsign = true
 [rerere]
 	enabled = true
 [push]
 	default = current
+	autoSetupRemote = true
 [pull]
 	rebase = true
 [rebase]
@@ -59,6 +64,9 @@
 	autosetuprebase = always
 [receive]
 	fsckObjects = true
+[fetch]
+	prune = true
+	pruneTags = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
