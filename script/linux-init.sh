@@ -7,21 +7,21 @@ set +e
 sudo -v
 
 # Update
-apt update
-apt upgrade -y
+sudo apt update
+sudo apt upgrade -y
 
 # Install deps
-apt install -y \
+sudo apt install -y \
     curl \
 	wget \
-	git-delta \
+	git-extras \
 	git \
 	openssl \
 	fzf \
 	jq \
-	yq \
 	bat \
 	watchman \
 	fish \
-	gnupg \
-	zoxide
+	gnupg
+
+# TODO: once codespaces uses Ubuntu 21.04, add this: zoxide yq

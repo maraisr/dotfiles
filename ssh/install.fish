@@ -1,5 +1,6 @@
 #!/usr/bin/env fish
 
+mkdir -p ~/.ssh
 test -f ~/.ssh/config || touch ~/.ssh/config
 
 switch (uname)
