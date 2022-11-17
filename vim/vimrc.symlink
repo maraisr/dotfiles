@@ -20,30 +20,30 @@ set showmatch
 set noswapfile
 set formatoptions=l
 set autoread						" Refresh file from extnernal changes
-set ruler						" Line number and columne number
-set backspace=indent,eol,start				" Allow over backspaceing over everthing in INSERT mode
-set title						" Updates the window title
+set ruler							" Line number and columne number
+set backspace=indent,eol,start		" Allow over backspaceing over everthing in INSERT mode
+set title							" Updates the window title
 set history=500						" Keep 100 lines of command history
 
 set tabstop=4
 
-set wrap						" Soft wrap lines
-set lbr							" Better line breaks when wrapping
+set wrap							" Soft wrap lines
+set lbr								" Better line breaks when wrapping
 set textwidth=120					" Wrap text at 120
 set colorcolumn=120					" Highlight at 120
 
-set list						" show whitespace chars
-set listchars=tab:\│\ ,eol:↲				" Bars for tabs, show eol chars
-set listchars+=nbsp:␣					" Show nonbreaking spaces
-set listchars+=trail:•					" Highlight trailing whitespace
-set listchars+=extends:⟩				" Char to show when no wrap but text extends right
-set listchars+=precedes:⟨				" Char to show when no wrap but text extends left
+set list							" show whitespace chars
+set listchars=tab:\│\ ,eol:↲		" Bars for tabs, show eol chars
+set listchars+=nbsp:␣				" Show nonbreaking spaces
+set listchars+=trail:•				" Highlight trailing whitespace
+set listchars+=extends:⟩			" Char to show when no wrap but text extends right
+set listchars+=precedes:⟨			" Char to show when no wrap but text extends left
 
 set incsearch						" Search more like you would in browsers
 set ignorecase						" Ignores case when searching
 set smartcase						" Be smart about searching
 set hlsearch						" Highlight searches
-set magic						" Regex in searches
+set magic							" Regex in searches
 
 set lazyredraw						" Don't redraw until i've finished with my commands
 
@@ -62,7 +62,7 @@ call plug#begin('~/.vim/plugged')
 		nnoremap <Leader>sit :NERDTreeFind<cr>
 
 		let NERDTreeShowHidden=1
-		let NERDTreeIgnore=[	'\.git$',
+		let NERDTreeIgnore=[ '\.git$',
 					\ '\.svn$',
 					\ '\.project$',
 					\ '\.settings$',
@@ -101,21 +101,20 @@ call plug#begin('~/.vim/plugged')
     " }}}
 
     " Langauges {{{
-	Plug 'rust-lang/rust.vim' " Rust
-    Plug 'leafgarland/typescript-vim' " Typescript
-    Plug 'jelera/vim-javascript-syntax' " Javascript extentions
-    Plug 'pangloss/vim-javascript' "Javascript
-    Plug 'gorodinskiy/vim-coloresque' " CSS colour preview
-	Plug 'stephpy/vim-yaml' " YAML
-	Plug 'elzr/vim-json' " JSON
+	Plug 'rust-lang/rust.vim' 							" Rust
+    Plug 'leafgarland/typescript-vim' 					" Typescript
+    Plug 'jelera/vim-javascript-syntax' 				" Javascript extentions
+    Plug 'pangloss/vim-javascript' 					    "Javascript
+    Plug 'gorodinskiy/vim-coloresque' 					" CSS colour preview
+	Plug 'stephpy/vim-yaml' 							" YAML
+	Plug 'elzr/vim-json' 								" JSON
 		au! BufRead,BufNewFile *.json set filetype=jso
 		augroup json_autocmd
 			autocmd!
 			autocmd FileType json set autoindent
 			autocmd FileType json set formatoptions=tcq2l
-			autocmd FileType json set foldmethod=syntax
 		augroup END
-    Plug 'oranget/vim-csharp' " C#
+    Plug 'oranget/vim-csharp' 							" C#
     " }}}
 
 call plug#end()

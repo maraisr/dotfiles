@@ -7,7 +7,6 @@ end
 if command -qs brew
     set -Ua fish_user_paths /usr/local/sbin /opt/homebrew/bin
 
-	# Install Desktop Applications
 	brew install --cask google-chrome
 	brew install --cask firefox
 	brew install --cask discord

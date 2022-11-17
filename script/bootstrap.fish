@@ -1,5 +1,7 @@
 #!/usr/bin/env fish
 
+set -Ux DOTFILES (pwd -P)
+
 function success
 	echo (set_color --bold green)'[ ✔ ]'(set_color normal) $argv
 end
@@ -7,6 +9,11 @@ end
 function abort
 	echo (set_color --bold yellow)'[ 𐄂 ]'(set_color normal) $argv
 	exit 1
+end
+
+for src in $DOTFILES/*/*.symlink
+	ln -sf $src $HOME/.(basename $src .symlink)
+		or abort 'failed to link config file'
 end
 
 for installer in */install.fish
@@ -26,7 +33,7 @@ test (which fish) = $SHELL
 	and success 'dotfiles installed/updated!'
 	and exit 0
 
-chsh -s (which fish)
+sudo chsh -s (which fish)
     and success set (fish --version) as the default shell
     or abort 'set fish as default shell'
 

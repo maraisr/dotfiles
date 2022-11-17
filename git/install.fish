@@ -1,7 +1,6 @@
 #!/usr/bin/env fish
 
 cp -f (pwd)/.gitconfig ~
-cp -f (pwd)/.gitignore-global ~
 
 switch (uname)
 case Darwin
