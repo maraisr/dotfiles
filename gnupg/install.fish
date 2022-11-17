@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 if test (uname) != Darwin
-	exit
+    exit
 end
 
 mkdir -p ~/.gnupg

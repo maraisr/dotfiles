@@ -1,26 +1,21 @@
 #!/usr/bin/env fish
 
 if test (uname) != Darwin
-	exit
+    exit
 end
 
-set -Ua fish_user_paths /usr/local/sbin /opt/homebrew/bin
-
 if command -qs brew
-	# Install Desktop Applications
-	brew install --cask \
-			google-chrome \
-			firefox \
-			whatsapp \
-			discord \
-			spotify \
-			spotmenu \
-			iterm2 \
-			visual-studio-code \
-			1password \
-			notion
+    set -Ua fish_user_paths /usr/local/sbin /opt/homebrew/bin
 
-	brew cleanup
+	# Install Desktop Applications
+	brew install --cask google-chrome
+	brew install --cask firefox
+	brew install --cask discord
+	brew install --cask spotify
+	brew install --cask visual-studio-code
+	brew install --cask 1password
+	brew install --cask notion
+	brew install --cask stats
 end
 
 ./mac/defaults.sh

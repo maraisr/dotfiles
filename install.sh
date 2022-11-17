@@ -3,14 +3,20 @@
 set +e
 
 if [ "$(uname)" == "Darwin" ]; then
-    echo "Running mac setup";
-	./script/mac-init.sh
-elif [ "$(uname)" == "Linux" ]; then
-    echo "Running linux setup";
-    ./script/linux-init.sh
+    echo "+---------------------+";
+    echo "+ Mac Setup           +";
+    echo "+---------------------+";
+	./init/mac.sh
+elif [ "$CODESPACES" == "true" ]; then
+    echo "+---------------------+";
+    echo "+ Codespace Setup     +";
+    echo "+---------------------+";
+    ./init/codespace.sh
 else
     exit 0
 fi
 
-echo "Running bootstrap";
+echo "+---------------------+";
+echo "+ Bootstrapping...    +";
+echo "+---------------------+";
 ./script/bootstrap.fish

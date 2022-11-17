@@ -24,30 +24,4 @@ if [[ ! -x /opt/homebrew/bin/brew ]]; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Setup brew
-
-brew update
-brew upgrade
-
-# Install deps
-
-brew install vim
-brew install \
-	curl \
-	wget \
-	gh \
-	git-delta \
-	git \
-	openssl \
-	fzf \
-	jq \
-	yq \
-	watch \
-	iproute2mac \
-	telnet \
-	bat \
-	watchman \
-	fish \
-	gnupg \
-	pinentry-mac \
-	zoxide
+brew bundle

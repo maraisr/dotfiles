@@ -15,6 +15,3 @@ mkdir -p ~/.config/fish/conf.d/
 for f in $DOTFILES/*/conf.d/*.fish
 	ln -sf $f ~/.config/fish/conf.d/(basename $f)
 end
-
-# omf 
-curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish

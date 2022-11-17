@@ -1,5 +1,9 @@
 #!/usr/bin/env fish
 
+if test (uname) != Darwin
+    exit
+end
+
 curl -fsSL https://get.volta.sh | bash -s
 
 ~/.volta/bin/volta setup

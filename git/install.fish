@@ -3,7 +3,6 @@
 cp -f (pwd)/.gitconfig ~
 cp -f (pwd)/.gitignore-global ~
 
-# Don't ask ssh password all the time
 switch (uname)
 case Darwin
 	git config --global credential.helper osxkeychain

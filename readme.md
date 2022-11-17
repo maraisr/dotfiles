@@ -1,5 +1,3 @@
-# Marais' Dotfiles
-
-```sh
-$ ./install.sh
-```
+<samp>
+    `./install.sh`
+</samp>

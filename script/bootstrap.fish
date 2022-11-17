@@ -1,11 +1,11 @@
 #!/usr/bin/env fish
 
 function success
-	echo [(set_color --bold green) ' OK ' (set_color normal)] $argv
+	echo (set_color --bold green)'[ ✔ ]'(set_color normal) $argv
 end
 
 function abort
-	echo [(set_color --bold yellow) ABRT (set_color normal)] $argv
+	echo (set_color --bold yellow)'[ 𐄂 ]'(set_color normal) $argv
 	exit 1
 end
 
@@ -26,10 +26,8 @@ test (which fish) = $SHELL
 	and success 'dotfiles installed/updated!'
 	and exit 0
 
-if [ (uname) = "Darwin" ]
-	chsh -s (which fish)
-		and success set (fish --version) as the default shell
-		or abort 'set fish as default shell'
-end
+chsh -s (which fish)
+    and success set (fish --version) as the default shell
+    or abort 'set fish as default shell'
 
 success '🎉 dotfiles installed/updated!'
