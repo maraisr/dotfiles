@@ -8,4 +8,5 @@ sudo -v
 sudo apt install -y \
 	git-extras \
 	fish \
+	vim \
     #zoxide
