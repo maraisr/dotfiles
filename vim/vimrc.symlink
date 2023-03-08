@@ -1,4 +1,4 @@
-set shell=/usr/bin/env\ bash
+set shell=/usr/bin/env\ fish
 
 filetype plugin indent on
 filetype plugin on
@@ -7,9 +7,55 @@ syntax on
 
 let mapleader = "\<Space>"
 
+call plug#begin('~/.vim/plugged')
+
+	" Nav {{{
+	Plug 'preservim/nerdtree'
+
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'junegunn/fzf.vim'
+		nnoremap <Leader>o :Files<cr>
+		nnoremap <Leader>b :Buffers<cr>
+	" }}}
+
+    " VCS {{{
+    Plug 'airblade/vim-gitgutter'
+        let g:gitgutter_updatetime = 750
+    " }}}
+
+    " Look and Feel {{{
+	Plug 'ayu-theme/ayu-vim'
+
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+		let g:airline_theme = 'luna'
+    " }}}
+
+    " Langauges {{{
+	Plug 'rust-lang/rust.vim' 							" Rust
+    Plug 'leafgarland/typescript-vim' 					" Typescript
+    Plug 'jelera/vim-javascript-syntax' 				" Javascript extentions
+    Plug 'pangloss/vim-javascript' 					    " Javascript
+    Plug 'gorodinskiy/vim-coloresque' 					" CSS colour preview
+	Plug 'stephpy/vim-yaml' 							" YAML
+	Plug 'elzr/vim-json' 								" JSON
+		au! BufRead,BufNewFile *.json set filetype=jso
+		augroup json_autocmd
+			autocmd!
+			autocmd FileType json set autoindent
+			autocmd FileType json set formatoptions=tcq2l
+		augroup END
+    Plug 'oranget/vim-csharp' 							" C#
+
+	Plug 'github/copilot.vim' 							" Copilot integration
+    " }}}
+
+call plug#end()
+
+set mouse=
+
 set nocompatible
 set encoding=utf-8
-set t_Co=256						" 256 colour mode
 set hidden
 set showcmd
 set cursorline						" Add a line under the current line
@@ -31,6 +77,8 @@ set wrap							" Soft wrap lines
 set lbr								" Better line breaks when wrapping
 set textwidth=120					" Wrap text at 120
 set colorcolumn=120					" Highlight at 120
+set relativenumber
+set rnu
 
 set list							" show whitespace chars
 set listchars=tab:\│\ ,eol:↲		" Bars for tabs, show eol chars
@@ -47,6 +95,12 @@ set magic							" Regex in searches
 
 set lazyredraw						" Don't redraw until i've finished with my commands
 
+if (has("termguicolors"))
+	set termguicolors " Support 24-bit colors
+	let ayucolor="light"
+	:colorscheme ayu
+endif
+
 " Stops annowing terminal bell
 set noerrorbells
 set novisualbell
@@ -54,70 +108,6 @@ set novisualbell
 set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
 
 autocmd BufRead,BufNewFile * setlocal signcolumn=yes
-
-call plug#begin('~/.vim/plugged')
-
-	" Nav {{{
-	Plug 'scrooloose/nerdtree'
-		nnoremap <Leader>sit :NERDTreeFind<cr>
-
-		let NERDTreeShowHidden=1
-		let NERDTreeIgnore=[ '\.git$',
-					\ '\.svn$',
-					\ '\.project$',
-					\ '\.settings$',
-					\ '\.buildpath$',
-					\ '\._.+$',
-					\ '\.git_externals$',
-					\ '\.gitignore',
-					\ '\.gitkeep',
-					\'\.DS_Store' ]
-		let NERDTreeMinimalUI=1
-		let NERDTreeShowBookmarks=1
-		let NERDTreeShowLineNumbers=1
-
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-	Plug 'junegunn/fzf.vim'
-		nnoremap <Leader>o :Files<cr>
-		nnoremap <Leader>b :Buffers<cr>
-" }}}
-
-    " Refactor {{{
-    Plug 'peterrincker/vim-argumentative'
-    " }}}
-
-    " VCS {{{
-    Plug 'airblade/vim-gitgutter'
-        let g:gitgutter_updatetime = 750
-    " }}}
-
-    " Look and Feel {{{
-    Plug 'jeffkreeftmeijer/vim-numbertoggle'
-
-    Plug 'vim-airline/vim-airline'
-
-    Plug 'vim-airline/vim-airline-themes'
-        let g:airline_theme='luna'
-    " }}}
-
-    " Langauges {{{
-	Plug 'rust-lang/rust.vim' 							" Rust
-    Plug 'leafgarland/typescript-vim' 					" Typescript
-    Plug 'jelera/vim-javascript-syntax' 				" Javascript extentions
-    Plug 'pangloss/vim-javascript' 					    "Javascript
-    Plug 'gorodinskiy/vim-coloresque' 					" CSS colour preview
-	Plug 'stephpy/vim-yaml' 							" YAML
-	Plug 'elzr/vim-json' 								" JSON
-		au! BufRead,BufNewFile *.json set filetype=jso
-		augroup json_autocmd
-			autocmd!
-			autocmd FileType json set autoindent
-			autocmd FileType json set formatoptions=tcq2l
-		augroup END
-    Plug 'oranget/vim-csharp' 							" C#
-    " }}}
-
-call plug#end()
 
 """ Mappings {{{
 
