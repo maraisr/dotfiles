@@ -14,8 +14,8 @@ tabspaces: 4
 
 font:
   normal:
-    family: "Monaco"
-  
+    family: "Monolisa Variable"
+
   size: 12
 
   offset:
