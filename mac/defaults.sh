@@ -136,7 +136,7 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 echo " ~› Save to disk by default, instead of iCloud"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
-echo " ~> Show status bar"
+echo " ~› Show status bar"
 defaults write com.apple.finder ShowStatusBar -bool true
 
 echo " ~› Show path bar"
@@ -148,7 +148,7 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 echo " ~› Don't save .DS_Store files on USB volumes"
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-echo " ~> Use list view in all Finder windows by default"
+echo " ~› Use list view in all Finder windows by default"
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
 
@@ -156,11 +156,11 @@ echo " ~› Set the Finder settings for showing a few different volumes on the D
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
-echo " ~> Search scope to current folder"
+echo " ~› Search scope to current folder"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # Possible values; This Mac (SCev), Current Folder (SCcf), Previous Scope (SCsp)
 
-echo " ~> Array by Kind"
+echo " ~› Array by Kind"
 defaults write com.apple.finder FXPreferredGroupBy -string "Kind"
 # Kind, Name, Application, Date Last Opened,
 # Date Added, Date Modified, Date Created, Size, Tags, None
@@ -215,7 +215,7 @@ fi
 echo ""
 echo "Screen:"
 
-echo " ~> Enable subpixel font rendering on non-Apple LCDs"
+echo " ~› Enable subpixel font rendering on non-Apple LCDs"
 defaults write NSGlobalDomain AppleFontSmoothing -int 1
 # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
 
@@ -226,25 +226,25 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 1
 echo ""
 echo "Dock:"
 
-echo " ~> Don’t automatically rearrange Spaces based on most recent use"
+echo " ~› Don’t automatically rearrange Spaces based on most recent use"
 defaults write com.apple.dock mru-spaces -bool false
 
-echo " ~> Disable app bounce"
+echo " ~› Disable app bounce"
 defaults write com.apple.dock no-bouncing -bool true
 
-echo " ~> Automatically hide and show the Dock"
+echo " ~› Automatically hide and show the Dock"
 defaults write com.apple.dock autohide -bool true
 
-echo " ~> Remove the auto-hiding Dock delay"
+echo " ~› Remove the auto-hiding Dock delay"
 defaults write com.apple.dock autohide-delay -float 0
 
-echo " ~> Disable dock magnification"
+echo " ~› Disable dock magnification"
 defaults write com.apple.dock magnification -bool false
 
 echo " ~› Don't animate opening applications from the Dock"
 defaults write com.apple.dock launchanim -bool false
 
-echo " ~> Don't show Dashboard as a Space"
+echo " ~› Don't show Dashboard as a Space"
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
 echo " ~› Setting the icon size of Dock items to 36 pixels for optimal size/screen-realestate"
@@ -254,13 +254,13 @@ echo " ~› Speeding up Mission Control animations and grouping windows by appli
 defaults write com.apple.dock expose-animation-duration -float 0.1
 defaults write com.apple.dock "expose-group-by-app" -bool true
 
-echo " ~> Show indicator lights for open applications in the Dock"
+echo " ~› Show indicator lights for open applications in the Dock"
 defaults write com.apple.dock show-process-indicators -bool true
 
-echo " ~> Show only open applications in the Dock"
+echo " ~› Show only open applications in the Dock"
 defaults write com.apple.dock static-only -bool true
 
-echo " ~> Set hot corners, bottom left -> show desktop"
+echo " ~› Set hot corners, bottom left -> show desktop"
 defaults write com.apple.dock wvous-bl-corner -int 4
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
@@ -332,16 +332,16 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 echo ""
 echo "Activity Monitor:"
 
-echo " ~> Show the main window when launching Activity Monitor"
+echo " ~› Show the main window when launching Activity Monitor"
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
 
-echo " ~> Visualize CPU usage in the Activity Monitor Dock icon"
+echo " ~› Visualize CPU usage in the Activity Monitor Dock icon"
 defaults write com.apple.ActivityMonitor IconType -int 5
 
-echo " ~> Show all processes in Activity Monitor"
+echo " ~› Show all processes in Activity Monitor"
 defaults write com.apple.ActivityMonitor ShowCategory -int 0
 
-echo " ~> Sort Activity Monitor results by CPU usage"
+echo " ~› Sort Activity Monitor results by CPU usage"
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
@@ -352,19 +352,19 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 echo ""
 echo "App Store:"
 
-echo " ~> Enable the WebKit Developer Tools in the Mac App Store"
+echo " ~› Enable the WebKit Developer Tools in the Mac App Store"
 defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 
-echo " ~> Enable the automatic update check"
+echo " ~› Enable the automatic update check"
 defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
-echo " ~> Check for software updates daily, not just once per week"
+echo " ~› Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
-echo " ~> Download newly available updates in background"
+echo " ~› Download newly available updates in background"
 defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
 
-echo " ~> Turn on app auto-update"
+echo " ~› Turn on app auto-update"
 defaults write com.apple.commerce AutoUpdate -bool true
 
 # -----------------------------------
@@ -374,7 +374,7 @@ defaults write com.apple.commerce AutoUpdate -bool true
 echo ""
 echo "OpenGPG:"
 
-echo " ~> Disable signing emails by default"
+echo " ~› Disable signing emails by default"
 defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault -bool false
 
 # Reboot everything
