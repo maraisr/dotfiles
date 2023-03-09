@@ -27,3 +27,11 @@ brew "watchman"
 brew "zoxide"
 
 brew "tdewolff/tap/minify"
+
+cask "alacritty"
+cask "discord"
+cask "spotify"
+cask "visual-studio-code"
+cask "1password"
+cask "notion"
+cask "stats" if OS.mac?
