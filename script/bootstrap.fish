@@ -12,7 +12,7 @@ function abort
 end
 
 for src in $DOTFILES/*/*.symlink
-	ln -sf $src $HOME/.(basename $src .symlink)
+	ln -sf $src ~/.(basename $src .symlink)
 		or abort 'failed to link config file'
 end
 
