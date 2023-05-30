@@ -9,4 +9,5 @@ sudo apt install -y \
 	git-extras \
 	fish \
 	vim \
+	ripgrep \
     #zoxide

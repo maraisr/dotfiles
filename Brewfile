@@ -25,6 +25,7 @@ brew "volta"
 brew "watch"
 brew "watchman"
 brew "zoxide"
+brew "ripgrep"
 
 brew "tdewolff/tap/minify"
 
