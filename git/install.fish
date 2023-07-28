@@ -16,3 +16,5 @@ if command -qs delta
 	git config --global delta.line-numbers true
 	git config --global delta.decorations true
 end
+
+git lfs install
