@@ -30,6 +30,9 @@ brew "wget"
 brew "yq"
 brew "zoxide"
 
+brew "cloudflared"
+brew "kubectl"
+
 brew "ffmpeg"
 brew "gh"
 brew "hugo"
