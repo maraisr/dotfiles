@@ -6,6 +6,7 @@ sudo -v
 
 # Install deps
 sudo apt install -y \
+	git-lfs \
 	git-extras \
 	fish \
 	vim \
