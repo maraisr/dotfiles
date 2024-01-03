@@ -14,34 +14,31 @@ offset = { x = 1, y = 2 }
 shape = "Block"
 blinking = "On"
 
+# Colors (Ayu Dark)
+
+# Default colors
 [colors.primary]
-background = "#ffffff"
-foreground = "#403f53"
+background = '#0A0E14'
+foreground = '#B3B1AD'
 
-[colors.cursor]
-cursor = "#403f53"
-text = "#fbfbfb"
-
-[colors.selection]
-background = "#c1ddff"
-text = "#000000"
-
-[colors.bright]
-black = "#676965"
-blue = "#83afd8"
-cyan = "#37e5e7"
-green = "#98e342"
-magenta = "#bc93b6"
-red = "#f44135"
-white = "#f1f1ef"
-yellow = "#fcea60"
-
+# Normal colors
 [colors.normal]
-black = "#000000"
-blue = "#417ab3"
-cyan = "#00a7aa"
-green = "#5da602"
-magenta = "#88658d"
-red = "#d71e00"
-white = "#dbded8"
-yellow = "#cfad00"
+black   = '#01060E'
+red     = '#EA6C73'
+green   = '#91B362'
+yellow  = '#F9AF4F'
+blue    = '#53BDFA'
+magenta = '#FAE994'
+cyan    = '#90E1C6'
+white   = '#C7C7C7'
+
+# Bright colors
+[colors.bright]
+black   = '#686868'
+red     = '#F07178'
+green   = '#C2D94C'
+yellow  = '#FFB454'
+blue    = '#59C2FF'
+magenta = '#FFEE99'
+cyan    = '#95E6CB'
+white   = '#FFFFFF'
