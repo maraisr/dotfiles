@@ -30,7 +30,7 @@
 [user]
 	name = Marais Rossouw
 	email = me@marais.co
-	signingkey = 2FACFD47AF4D59A4
+	signingkey = 4B4F42ACD5E46944
 [core]
 	autocrlf = input
 	eol = ef
