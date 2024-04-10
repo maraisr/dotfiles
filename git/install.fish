@@ -5,8 +5,10 @@ cp -f (pwd)/.gitconfig ~
 switch (uname)
 case Darwin
 	git config --global credential.helper osxkeychain
+	git lfs install
 case '*'
 	git config --global credential.helper cache
+	git conifig --global commit.gpgSign false
 end
 
 if command -qs delta
@@ -16,5 +18,3 @@ if command -qs delta
 	git config --global delta.line-numbers true
 	git config --global delta.decorations true
 end
-
-git lfs install
