@@ -5,7 +5,6 @@ cp -f (pwd)/.gitconfig ~
 switch (uname)
 case Darwin
 	git config --global credential.helper osxkeychain
-	git lfs install
 case '*'
 	git config --global credential.helper cache
 end
