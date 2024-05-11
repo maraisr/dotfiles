@@ -8,7 +8,6 @@ case Darwin
 	git lfs install
 case '*'
 	git config --global credential.helper cache
-	git conifig --global commit.gpgSign false
 end
 
 if command -qs delta
