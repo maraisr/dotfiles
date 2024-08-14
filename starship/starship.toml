@@ -1,0 +1,24 @@
+add_newline = false
+command_timeout = 200
+
+format = """
+$directory\
+$git_branch\
+$git_state\
+$character\
+"""
+
+[character]
+format = " "
+
+[directory]
+style = "cyan"
+
+[git_branch]
+format = "[($branch)]($style)"
+
+[git_status]
+disabled = true
+
+[package]
+disabled = true
