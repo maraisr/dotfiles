@@ -39,7 +39,6 @@ brew "hugo"
 brew "tdewolff/tap/minify"
 
 cask "1password"
-cask "alacritty"
 cask "banana-cake-pop"
 cask "discord"
 cask "figma"
