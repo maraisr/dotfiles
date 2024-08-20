@@ -6,3 +6,5 @@ setup() {
 command() {
 	brew bundle
 }
+
+provides() = { brew }
