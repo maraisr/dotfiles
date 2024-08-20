@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "test.h"
+
 FILE* open_file(char* path) {
 	FILE* f = fopen(path, "r");
 	if (f == NULL) {
@@ -12,6 +14,8 @@ FILE* open_file(char* path) {
 }
 
 int main() {
+	test();
+
 	FILE* f = open_file("../facet/brew/brew.figgle");
 
 	char c;

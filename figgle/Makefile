@@ -1,17 +1,17 @@
 SRC = $(wildcard src/*.c)
-OBJ = $(patsubst src/%.c,out/%.o,$(SRC))
 
 build: figgle
+
+clean:
+	@rm -f figgle
+.PHONY: clean
 
 run: figgle
 	@./figgle
 .PHONY: run
 
-figgle: $(OBJ)
+figgle: $(SRC)
 	gcc -o $@ $^
-
-out/%.o: src/%.c | out
-	gcc -c -o $@ $<
-
-out:
-	mkdir out
+	@echo "============================================"
+	@echo "            Build successful!               "
+	@echo "============================================\n"
