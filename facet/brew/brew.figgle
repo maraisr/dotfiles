@@ -1,0 +1,10 @@
+setup() {
+	fetch("https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh")
+	| sh
+}
+
+run() {
+	brew bundle
+}
+
+provides() = { brew }
