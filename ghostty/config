@@ -1,6 +1,10 @@
+confirm-close-surface = false
+
 theme = catppuccin-mocha
 
 window-colorspace = display-p3
 
-window-padding-x = 8
-window-padding-y = 8
+window-height = 35
+window-width = 135
+window-padding-x = 16
+window-padding-y = 16
