@@ -11,7 +11,8 @@ run: figgle
 .PHONY: run
 
 figgle: $(SRC)
-	gcc -o $@ $^
+	cc -Wall -Wextra -std=c11 \
+		-o $@ $^
 	@echo "============================================"
 	@echo "            Build successful!               "
 	@echo "============================================\n"

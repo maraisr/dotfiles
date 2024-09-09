@@ -1,25 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "test.h"
+#include "lexer.h"
 
-FILE* open_file(char* path) {
+char* read_file(char* path) {
 	FILE* f = fopen(path, "r");
-	if (f == NULL) {
-		printf("Error opening file\n");
-		exit(1);
-	}
 
-	return f;
+	char *buffer;
+	long size;
+	fseek(f, 0, SEEK_END);
+	size = ftell(f);
+	rewind(f);
+	buffer = calloc(1, size);
+	fread(buffer, size, 1, f);
+	fclose(f);
+
+	return buffer;
 }
 
 int main() {
-	test();
+	char* content = read_file("../facet/brew/brew.figgle");
+	Lexer lx = lexer_new(content);
 
-	FILE* f = open_file("../facet/brew/brew.figgle");
-
-	char c;
-	while ((c = fgetc(f)) != EOF) {
-		printf("%c", c);
+	Token t;
+	while ((t = lexer_next(&lx)).kind != TOKEN_END) {
+		if (t.kind == TOKEN_KEYWORD) {
+			printf("Token kind: %d, Token text: ", t.kind);
+			for (size_t i = 0; i < t.text_len; i++) {
+				putchar(t.text[i]);
+			}
+			printf("\n");
+		}
 	}
 }
