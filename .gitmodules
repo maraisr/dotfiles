@@ -1,0 +1,3 @@
+[submodule "figgle/v"]
+	path = figgle/v
+	url = https://github.com/vlang/v

@@ -2,8 +2,8 @@ src = $(wildcard src/*.c)
 
 build: figgle
 
-figgle: $(src)
-	cc -Wall -Wextra -std=c11 -o $@ $^
+figgle: src/main.v
+	./v/v -o $@ $^
 	@echo "============================================"
 	@echo "            Build successful!               "
 	@echo "============================================\n"
