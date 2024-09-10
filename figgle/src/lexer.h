@@ -2,6 +2,7 @@
 #define LEXER_H
 
 #include <stddef.h>
+#include "common.h"
 
 typedef enum {
     TOKEN_END = 0,

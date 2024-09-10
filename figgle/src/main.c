@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "lexer.h"
+#include "ast.h"
 
 char *read_file(char *path) {
   FILE *f = fopen(path, "r");
@@ -19,22 +20,10 @@ char *read_file(char *path) {
   return buffer;
 }
 
-da(Token, Tokens);
-
 int main() {
   char *content = read_file("./fixtures/script.fig");
-  Lexer lx = lexer_new(content);
 
-  Tokens tokens = {};
-
-  Token t;
-  while ((t = lexer_next_token(&lx)).kind != TOKEN_END)
-    da_append(&tokens, t);
-
-  for (int i = 0; i < tokens.count; i++) {
-    Token t = tokens.items[i];
-    printf("%d :: '%.*s'\n", t.kind, (int)t.text_len, t.text);
-  }
+  parse(content);
 
   return 0;
 }

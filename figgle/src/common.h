@@ -1,9 +1,13 @@
-#define da(T, name)                                                            \
-  typedef struct {                                                             \
-    T *items;                                                                  \
-    size_t count;                                                              \
-    size_t capacity;                                                           \
-  } name;
+#ifndef COMMON_H
+#define COMMON_H
+
+#include <stddef.h>
+
+typedef struct {
+    void** items;
+    size_t count;
+    size_t capacity;
+} DA;
 
 #define da_append(da, item)                                                    \
   do {                                                                         \
@@ -15,3 +19,5 @@
                                                                                \
     (da)->items[(da)->count++] = (item);                                       \
   } while (0)
+
+#endif // COMMON_H
