@@ -1,9 +1,9 @@
 setup() {
-	fetch(https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+	fetch("https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh")
 	| sh
 }
 
-command() {
+run() {
 	brew bundle
 }
 

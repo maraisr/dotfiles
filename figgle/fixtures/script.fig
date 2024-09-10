@@ -1,0 +1,9 @@
+task "backup" {
+   files = var "files"
+
+   ```js
+   for (let file of files) {
+	 log(`backing up ${file}`)
+   }
+   ```
+}
