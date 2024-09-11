@@ -1,10 +1,3 @@
 // comments
 
 name = "basic"
-
-task "install rust", os = "Darwin" {
-  bin "rustup" {
-    fetch "https://sh.rustup.rs" | sh "test" "-y"
-    log "done"
-  }
-}

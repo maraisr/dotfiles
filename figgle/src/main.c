@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ast.h"
 #include "common.h"
 #include "lexer.h"
-#include "ast.h"
+#include "parser.h"
 
 char *read_file(char *path) {
   FILE *f = fopen(path, "r");
@@ -20,10 +21,26 @@ char *read_file(char *path) {
   return buffer;
 }
 
-int main() {
-  char *content = read_file("./fixtures/script.fig");
+int main(int argc, char **argv) {
+  if (argc > 1) {
+    char *content = read_file(argv[1]);
+    Node a = parse(content);
+    print_node(&a, 0);
+  } else {
+    while (1) {
+      printf("\n~> ");
 
-  parse(content);
+      char buffer[1000];
+      if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+        Node a = parse(buffer);
+        printf("==\n");
+        print_node(&a, 0);
+        printf("\n==\n");
+      } else {
+        break;
+      }
+    }
+  }
 
   return 0;
 }

@@ -2,12 +2,14 @@
 #define COMMON_H
 
 #include <stddef.h>
+#include <stdlib.h>
 
-typedef struct {
-    void** items;
-    size_t count;
-    size_t capacity;
-} DA;
+#define DA(T)                                                                  \
+  struct {                                                                     \
+    T *items;                                                                  \
+    size_t count;                                                              \
+    size_t capacity;                                                           \
+  }
 
 #define da_append(da, item)                                                    \
   do {                                                                         \
