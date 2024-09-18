@@ -38,7 +38,7 @@ impl<'a> Lexer<'a> {
             };
 
             let start = self.source.offset();
-            let kind = unsafe { byte_handler(b, self) };
+            let kind = unsafe { byte_handler(b, &mut self.source) };
             if kind == Kind::Skip {
                 continue;
             }
