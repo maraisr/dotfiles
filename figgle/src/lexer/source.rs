@@ -20,21 +20,13 @@ impl<'a> Source<'a> {
     }
 
     #[inline]
-    pub fn is_eof(&self) -> bool {
+    fn is_eof(&self) -> bool {
         self.cursor == self.end
     }
 
     #[inline]
     pub fn offset(&self) -> usize {
         self.cursor as usize - self.start as usize
-    }
-
-    #[inline]
-    pub fn peek_byte(&self) -> Option<u8> {
-        if self.is_eof() {
-            return None;
-        }
-        Some(unsafe { *self.cursor.as_ref().unwrap_unchecked() })
     }
 
     #[inline]
@@ -45,16 +37,20 @@ impl<'a> Source<'a> {
     }
 
     #[inline]
-    pub fn peek(&self) -> Option<char> {
-        let c = self.peek_byte()?;
-        if !c.is_ascii() {
+    pub fn peek(&self) -> Option<u8> {
+        if self.is_eof() {
+            return None;
+        }
+
+        let c = unsafe { *self.cursor.as_ref().unwrap_unchecked() };
+        if cfg!(debug_assertions) && !c.is_ascii() {
             panic!("Only ASCII characters are supported");
         }
-        Some(c as char)
+        Some(c)
     }
 
     #[inline]
-    pub fn next(&mut self) -> Option<char> {
+    pub fn next(&mut self) -> Option<u8> {
         let c = self.peek();
         self.bump();
         c

@@ -65,7 +65,7 @@ byte_handler!(QOD(source) {
     source.bump();
     loop {
         match source.peek() {
-            Some('"') => {
+            Some(b'"') => {
                 source.bump();
                 return Kind::String
             },
@@ -78,8 +78,8 @@ byte_handler!(QOD(source) {
 byte_handler!(DIG(source) {
     loop {
         match source.peek() {
-            Some('0'..='9') => {source.bump();},
-            Some('.') => {source.bump();},
+            Some(b'0'..=b'9') => {source.bump();},
+            Some(b'.') => {source.bump();},
             _ => return Kind::Number
         }
     }
@@ -90,7 +90,7 @@ byte_handler!(SLH(source) {
     source.bump();
     while let Some(c) = source.peek() {
         source.bump();
-        if c == '\n' {
+        if c == b'\n' {
             break;
         }
     }
@@ -100,24 +100,24 @@ byte_handler!(SLH(source) {
 // { }
 byte_handler!(BRC(source) {
     match source.next() {
-        Some('{') => Kind::LBrace,
+        Some(b'{') => Kind::LBrace,
         _ => Kind::RBrace
     }
 });
 
 byte_handler!(IDT(source) {
-	// TODO: can it be https://github.com/ratel-rust/ratel-core/blob/e55a1310ba69a3f5ce2a9a6eef643feced02ac08/ratel/src/source/util.rs#L2
+    // TODO: can it be https://github.com/ratel-rust/ratel-core/blob/e55a1310ba69a3f5ce2a9a6eef643feced02ac08/ratel/src/source/util.rs#L2
     loop {
         match source.peek() {
-			Some(c) => {
-				if c.is_alphanumeric() {
-					source.bump();
-				} else {
-					return Kind::Symbol
-				}
-			},
-			_ => return Kind::Symbol
-		}
+            Some(c) => {
+                if (c as char).is_alphanumeric() {
+                    source.bump();
+                } else {
+                    return Kind::Symbol
+                }
+            },
+            _ => return Kind::Symbol
+        }
     }
 });
 

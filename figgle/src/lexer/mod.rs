@@ -33,7 +33,7 @@ impl<'a> Lexer<'a> {
         }
 
         loop {
-            let Some(b) = self.source.peek_byte() else {
+            let Some(b) = self.source.peek() else {
                 return None;
             };
 
