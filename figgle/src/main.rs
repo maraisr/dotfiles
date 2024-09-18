@@ -1,15 +1,21 @@
+// #![feature(allocator_api)]
+
+extern crate bumpalo;
+#[macro_use]
+extern crate anyhow;
+
 mod lexer;
+mod parser;
 
 fn main() {
     let args = std::env::args().collect::<Vec<String>>();
     if args.len() == 2 {
         let path = &args[1];
         let buffer = std::fs::read_to_string(path).expect("Failed to read file");
-        let lexer = lexer::Lexer::new(&buffer);
-        for token in lexer {
-            let s = &buffer[token.span.start..token.span.end];
-            println!("{token:?} {s:?}");
-        }
+        // let mut arena = bumpalo::Bump::new();
+        let parser = parser::Parser::new(&buffer);
+        let ast = parser.parse();
+        println!("{ast:?}");
     }
 
     //    let stdin = std::io::stdin();

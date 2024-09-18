@@ -19,7 +19,7 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    fn peek(&mut self) -> Option<&Token> {
+    pub fn peek(&mut self) -> Option<&Token> {
         if self.lookahead.is_empty() {
             let token = self.next()?;
             self.lookahead.push_front(token);
@@ -27,7 +27,7 @@ impl<'a> Lexer<'a> {
         Some(self.lookahead.front().unwrap())
     }
 
-    fn next(&mut self) -> Option<Token> {
+    pub fn next(&mut self) -> Option<Token> {
         if let Some(token) = self.lookahead.pop_front() {
             return Some(token);
         }
@@ -160,7 +160,7 @@ impl Debug for Span {
 
 #[derive(Default)]
 pub struct Token {
-    kind: Kind,
+    pub kind: Kind,
     pub span: Span,
 }
 
@@ -174,7 +174,7 @@ impl Debug for Token {
 }
 
 #[derive(Debug, Default, PartialEq, Eq)]
-enum Kind {
+pub enum Kind {
     Invalid,
     #[default]
     End,

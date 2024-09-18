@@ -1,2 +1,6 @@
 [package]
 name = "figgle"
+
+[dependencies]
+bumpalo = { version = "3", features = ["boxed", "collections"] }
+anyhow = "1.0"
