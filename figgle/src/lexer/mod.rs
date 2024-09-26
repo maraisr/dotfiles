@@ -80,7 +80,6 @@ mod test {
 		assert_lex("// foo\n123", [(Kind::Number, "123")]);
 	}
 
-	#[ignore]
 	#[test]
 	fn identifier() {
 		assert_lex("foo", [(Kind::Symbol, "foo")]);
@@ -128,7 +127,7 @@ pub struct Span {
 }
 
 impl Span {
-	pub fn merge(self, other: Span) -> Span {
+	pub fn merge(self, other: &Span) -> Span {
 		use std::cmp::max;
 		use std::cmp::min;
 		let start = min(self.start, other.start);

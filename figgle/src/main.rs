@@ -1,6 +1,11 @@
 #![feature(allocator_api)]
 #![feature(let_chains)]
 
+use std::ops::Deref;
+
+use miette::SourceCode;
+use parser::{read_span, Definition};
+
 extern crate bumpalo;
 extern crate miette;
 extern crate thiserror;
@@ -17,7 +22,23 @@ fn main() -> miette::Result<()> {
 		let arena = bumpalo::Bump::new();
 		let parser = parser::Parser::new(&buffer, &arena);
 		match parser.parse() {
-			Ok(ast) => println!("{ast:?}"),
+			Ok(ast) => {
+				println!("{ast:?}");
+
+				// for item in ast.iter() {
+				// 	let s = read_span(&buffer, &item.span);
+				// 	println!("{:?}\n---\n{}\n---\n", item, s);
+
+				// 	match item.deref() {
+				// 		Definition::Task(a) => {
+				// 			let name = &a.name;
+				// 			let s = read_span(&buffer, &name.span);
+				// 			println!("{:?}\n---\n{}\n---\n", name, s);
+				// 		}
+				// 		_ => {}
+				// 	}
+				// }
+			},
 			Err(e) => return Err(e.with_source_code(buffer.clone())),
 		};
 	}
