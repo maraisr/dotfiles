@@ -1,7 +1,7 @@
-use anyhow::Result;
 use lexer::Kind;
 use lexer::Lexer;
 
+use crate::error::Result;
 use crate::lexer::Token;
 
 pub type AST = Vec<Definition>;
@@ -9,21 +9,40 @@ pub type AST = Vec<Definition>;
 #[derive(Debug)]
 pub enum Definition {
 	TaskDefinition(Box<TaskDefinition>),
-	Noop,
+	Var(Token),
 }
 
 #[derive(Debug)]
-pub struct TaskDefinition {}
+pub struct TaskDefinition {
+	name: Token,
+}
 
 pub struct Parser<'a> {
 	lexer: Lexer<'a>,
+	// TODO: can we do something like an Error factory? and enhance with source later?
+	source: String,
 	// arena: &'a mut bumpalo::Bump,
+}
+
+macro_rules! report {
+	($source:expr, $token:expr) => {{
+		let span = $token.span.clone();
+		let source = $source.clone();
+		Err(crate::error::Errors::ParsingError {
+			src: source,
+			token: $token,
+			span: span.into(),
+		})
+	}};
 }
 
 impl<'a> Parser<'a> {
 	pub fn new(source: &'a str) -> Self {
 		let lexer = Lexer::new(source);
-		Self { lexer }
+		Self {
+			lexer,
+			source: String::from(source),
+		}
 	}
 
 	#[inline]
@@ -38,10 +57,11 @@ impl<'a> Parser<'a> {
 
 	fn expect(&mut self, kind: Kind) -> Result<Token> {
 		let Some(token) = self.lexer.next() else {
-			bail!("Expected token");
+			// TODO: Yep no panic
+			panic!("test");
 		};
 		if token.kind != kind {
-			bail!("Expected kind {kind:?} got {:?}", token.kind);
+			panic!("test");
 		}
 		Ok(token)
 	}
@@ -53,25 +73,33 @@ impl<'a> Parser<'a> {
 			if self.peek().is_none() {
 				break;
 			}
-			if let Ok(def) = self.definition() {
-				ast.push(def);
-			}
+
+			let def = self.definition()?;
+			ast.push(def);
 		}
 
 		Ok(ast)
 	}
 
 	fn definition(&mut self) -> Result<Definition> {
-		match self.peek().unwrap().kind {
+		let token = self.peek().unwrap().clone();
+
+		// TODO: None of this is correct
+		match token.kind {
+			Kind::Task => {
+				self.next();
+				let name = self.expect(Kind::String)?;
+				let task = TaskDefinition { name };
+				let b = Box::new(task);
+				return Ok(Definition::TaskDefinition(b));
+			}
 			Kind::Symbol => {
 				self.next();
-				let task = TaskDefinition {};
-				let def = Box::new(task);
-				Ok(Definition::TaskDefinition(def))
+				self.expect(Kind::Eq)?;
+				return Ok(Definition::Var(self.expect(Kind::String)?));
 			}
 			_ => {
-				self.next();
-				bail!("TODO")
+				return report!(self.source, token);
 			}
 		}
 	}

@@ -1,22 +1,25 @@
 // #![feature(allocator_api)]
 
-extern crate bumpalo;
-#[macro_use]
-extern crate anyhow;
+// extern crate bumpalo;
+extern crate miette;
+extern crate thiserror;
 
 mod lexer;
 mod parser;
+mod error;
 
-fn main() {
+fn main() -> miette::Result<()> {
 	let args = std::env::args().collect::<Vec<String>>();
 	if args.len() == 2 {
 		let path = &args[1];
 		let buffer = std::fs::read_to_string(path).expect("Failed to read file");
 		// let mut arena = bumpalo::Bump::new();
 		let parser = parser::Parser::new(&buffer);
-		let ast = parser.parse();
+		let ast = parser.parse()?;
 		println!("{ast:?}");
 	}
+
+	Ok(())
 
 	//    let stdin = std::io::stdin();
 	//    let mut handle = stdin.lock();

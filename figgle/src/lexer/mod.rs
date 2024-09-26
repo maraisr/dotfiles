@@ -127,10 +127,16 @@ mod test {
 
 // ---
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct Span {
 	pub start: usize,
 	pub end: usize,
+}
+
+impl Into<miette::SourceSpan> for Span {
+    fn into(self) -> miette::SourceSpan {
+        miette::SourceSpan::new(self.start.into(), self.end - self.start)
+    }
 }
 
 use std::ops::Range;
@@ -149,7 +155,8 @@ impl Debug for Span {
 	}
 }
 
-#[derive(Default)]
+// TODO: remove this clone
+#[derive(Default, Clone)]
 pub struct Token {
 	pub kind: Kind,
 	pub span: Span,
@@ -161,7 +168,13 @@ impl Debug for Token {
 	}
 }
 
-#[derive(Debug, Default, PartialEq, Eq)]
+impl std::fmt::Display for Token {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self.kind)
+    }
+}
+
+#[derive(Debug, Default, PartialEq, Eq, Clone)]
 pub enum Kind {
 	Invalid,
 	#[default]
