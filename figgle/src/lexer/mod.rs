@@ -134,9 +134,9 @@ pub struct Span {
 }
 
 impl Into<miette::SourceSpan> for Span {
-    fn into(self) -> miette::SourceSpan {
-        miette::SourceSpan::new(self.start.into(), self.end - self.start)
-    }
+	fn into(self) -> miette::SourceSpan {
+		miette::SourceSpan::new(self.start.into(), self.end - self.start)
+	}
 }
 
 use std::ops::Range;
@@ -169,9 +169,9 @@ impl Debug for Token {
 }
 
 impl std::fmt::Display for Token {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:?}", self.kind)
-    }
+	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+		write!(f, "{:?}", self.kind)
+	}
 }
 
 #[derive(Debug, Default, PartialEq, Eq, Clone)]

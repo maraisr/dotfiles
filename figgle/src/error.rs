@@ -15,6 +15,6 @@ pub enum Errors {
 		src: String,
 		#[label("Unexpected {token}")]
 		span: SourceSpan,
-		token: Token
+		token: Token,
 	},
 }

@@ -4,9 +4,9 @@
 extern crate miette;
 extern crate thiserror;
 
+mod error;
 mod lexer;
 mod parser;
-mod error;
 
 fn main() -> miette::Result<()> {
 	let args = std::env::args().collect::<Vec<String>>();
