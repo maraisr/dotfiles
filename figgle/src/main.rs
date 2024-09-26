@@ -5,7 +5,8 @@
 use std::ops::Deref;
 
 use miette::SourceCode;
-use parser::{read_span, Definition};
+use parser::read_span;
+use parser::Definition;
 
 extern crate bumpalo;
 extern crate miette;
@@ -39,7 +40,7 @@ fn main() -> miette::Result<()> {
 				// 		_ => {}
 				// 	}
 				// }
-			},
+			}
 			Err(e) => return Err(e.with_source_code(buffer.clone())),
 		};
 	}

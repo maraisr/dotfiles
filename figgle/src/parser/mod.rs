@@ -1,9 +1,6 @@
-use std::alloc::Allocator;
-use std::alloc::Layout;
-use std::ptr;
+// TODO: Remove bumpalo fro this file directly, instead can we "teach it about an Allocator"
 
 use bumpalo::Bump;
-
 use lexer::Kind;
 use lexer::Lexer;
 
@@ -12,32 +9,32 @@ use crate::lexer::Span;
 use crate::lexer::Token;
 use crate::report;
 
-// type BoxNode<'a, T> = Box<Node<'a, T>, &'a Arena>;
 type List<'a, T> = Vec<T, &'a Bump>;
+type Box<'a, T> = std::boxed::Box<T, &'a Bump>;
 
 #[derive(Debug)]
 pub struct Node<'a, T: 'a> {
 	pub span: Span,
-	item: &'a T
+	item: &'a T,
 }
 
 impl<'a, T> std::ops::Deref for Node<'a, T> {
-    type Target = T;
+	type Target = T;
 
-    #[inline]
-    fn deref(&self) -> &Self::Target {
-        &self.item
-    }
+	#[inline]
+	fn deref(&self) -> &Self::Target {
+		&self.item
+	}
 }
 
 #[derive(Debug)]
 pub enum Definition<'a> {
-	Task(Box<TaskDefinition<'a>, &'a Bump>)
+	Task(Box<'a, TaskDefinition<'a>>),
 }
 
 #[derive(Debug)]
 pub struct TaskDefinition<'a> {
-	pub name: Literal<'a>
+	pub name: Literal<'a>,
 }
 
 type Literal<'a> = Node<'a, &'a str>;
@@ -57,7 +54,7 @@ macro_rules! expect {
 	($self:ident, $kind:expr) => {{
 		$self.expect($kind)?;
 		&$self.current
-	}}
+	}};
 }
 
 impl<'a> Parser<'a> {
@@ -93,8 +90,7 @@ impl<'a> Parser<'a> {
 	}
 
 	#[inline]
-	fn node<T>(&mut self, item: T, span: Span) -> Node<'a, T>
-	{
+	fn node<T>(&mut self, item: T, span: Span) -> Node<'a, T> {
 		let item = self.arena.alloc(item);
 		Node { item, span }
 	}
