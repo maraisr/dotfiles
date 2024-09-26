@@ -1,11 +1,13 @@
-use std::{iter::Peekable, str::CharIndices};
+use std::iter::Peekable;
+use std::str::CharIndices;
 
-use super::{Kind, Token};
+use super::Kind;
+use super::Token;
 
 type Source<'a> = Peekable<CharIndices<'a>>;
 
 pub(super) unsafe fn byte_handler(byte: u8, source: &mut Source<'_>) -> Option<Token> {
-    BYTE_HANDLERS[byte as usize](source)
+	BYTE_HANDLERS[byte as usize](source)
 }
 
 type ByteHandler = unsafe fn(&mut Source<'_>) -> Option<Token>;
@@ -34,36 +36,36 @@ static BYTE_HANDLERS: [ByteHandler; 256] = [
 ];
 
 macro_rules! byte_handler {
-    ($id:ident($lex:ident) $body:expr) => {
-        const $id: ByteHandler = {
-            #[allow(non_snake_case)]
-            fn $id($lex: &mut Source<'_>) -> Option<Token> {
-                $body
-            }
-            $id
-        };
-    };
+	($id:ident($lex:ident) $body:expr) => {
+		const $id: ByteHandler = {
+			#[allow(non_snake_case)]
+			fn $id($lex: &mut Source<'_>) -> Option<Token> {
+				$body
+			}
+			$id
+		};
+	};
 }
 
 macro_rules! consume_into {
-    ($id:ident, $kind:expr) => {
-        const $id: ByteHandler = {
-            #[allow(non_snake_case)]
-            fn $id(l: &mut Source<'_>) -> Option<Token> {
-                let (i, _) = l.next()?;
-                if $kind == Kind::Skip {
-                    // TODO: Should we "skip" this token from appearing,
-                    // or return it and handle it in the parser?
-                    return None;
-                }
-                Some(Token {
-                    kind: $kind,
-                    span: (i..i + 1).into(),
-                })
-            }
-            $id
-        };
-    };
+	($id:ident, $kind:expr) => {
+		const $id: ByteHandler = {
+			#[allow(non_snake_case)]
+			fn $id(l: &mut Source<'_>) -> Option<Token> {
+				let (i, _) = l.next()?;
+				if $kind == Kind::Skip {
+					// TODO: Should we "skip" this token from appearing,
+					// or return it and handle it in the parser?
+					return None;
+				}
+				Some(Token {
+					kind: $kind,
+					span: (i..i + 1).into(),
+				})
+			}
+			$id
+		};
+	};
 }
 
 consume_into!(EOF, Kind::End);
@@ -77,76 +79,76 @@ consume_into!(BCR, Kind::RBrace); // }
 
 // "
 byte_handler!(QOD(source) {
-    let (start, _) = source.next()?;
-    // TODO: Can this end things be better?
-    let mut end = start;
-    while let Some((i, c)) = source.next() {
-        if c == '"' {
-            end = i;
-            break;
-        }
-    }
+	let (start, _) = source.next()?;
+	// TODO: Can this end things be better?
+	let mut end = start;
+	while let Some((i, c)) = source.next() {
+		if c == '"' {
+			end = i;
+			break;
+		}
+	}
 
-    Some(Token { kind: Kind::String, span: (start..end+1).into()})
+	Some(Token { kind: Kind::String, span: (start..end+1).into()})
 });
 
 // 0..9
 byte_handler!(DIG(source) {
-    let (start, _) = source.next()?;
-    let mut end = start;
-    loop {
-        match source.peek() {
-            Some((i, c)) => {
-                if c.is_digit(10) || c == &'.' {
-                    end = *i;
-                } else {
-                    break;
-                }
-            }
-            _ => break,
-        }
-        source.next();
-    }
+	let (start, _) = source.next()?;
+	let mut end = start;
+	loop {
+		match source.peek() {
+			Some((i, c)) => {
+				if c.is_digit(10) || c == &'.' {
+					end = *i;
+				} else {
+					break;
+				}
+			}
+			_ => break,
+		}
+		source.next();
+	}
 
-    Some(Token { kind: Kind::Number, span: (start..end+1).into()})
+	Some(Token { kind: Kind::Number, span: (start..end+1).into()})
 });
 
 // /
 byte_handler!(SLH(source) {
-    source.next()?;
-     while let Some((_, c)) = source.peek() {
-        if c == &'\n' {
-            break;
-        }
-        source.next()?;
-    }
-    None
+	source.next()?;
+	 while let Some((_, c)) = source.peek() {
+		if c == &'\n' {
+			break;
+		}
+		source.next()?;
+	}
+	None
 });
 
 byte_handler!(IDT(source) {
-    let (start, c) = source.next()?;
-    let mut end = start;
-    // TODO: maybe we should pass the original source down, instead of allocating a new word.
-    let mut word = c.to_string();
-    while let Some((i, c)) = source.peek() {
-        if !c.is_alphanumeric() {
-            break;
-        }
-        end = *i;
-        word.push(*c);
-        source.next()?;
-    }
+	let (start, c) = source.next()?;
+	let mut end = start;
+	// TODO: maybe we should pass the original source down, instead of allocating a new word.
+	let mut word = c.to_string();
+	while let Some((i, c)) = source.peek() {
+		if !c.is_alphanumeric() {
+			break;
+		}
+		end = *i;
+		word.push(*c);
+		source.next()?;
+	}
 
-    // TODO: maybe move this stuff into other files
-    let kind = match word.as_str() {
-        "task" => Kind::Task,
-        "var" => Kind::Var,
-        _ => Kind::Symbol
-    };
+	// TODO: maybe move this stuff into other files
+	let kind = match word.as_str() {
+		"task" => Kind::Task,
+		"var" => Kind::Var,
+		_ => Kind::Symbol
+	};
 
-    Some(Token { kind, span: (start..end+1).into()})
+	Some(Token { kind, span: (start..end+1).into()})
 });
 
 byte_handler!(UER(_source) {
-    unreachable!();
+	unreachable!();
 });
