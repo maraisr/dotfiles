@@ -1,3 +1,5 @@
 https://github.com/tlaceby/guide-to-interpreters-series/blob/main/ep11-user-defined-functions/frontend/parser.ts#L180
 https://github.com/sebbekarlsson/tac/blob/master/src/parser.c
 https://github.com/tsoding/ded/blob/master/src/lexer.c
+
+https://github.com/esoterra/claw-lang/blob/main/crates/ast/src/lib.rs

@@ -22,37 +22,31 @@ impl<'a> Lexer<'a> {
 
 	pub fn peek(&mut self) -> Option<&Token> {
 		if self.lookahead.is_empty() {
-			let token = self.next()?;
+			let token = self.next();
 			self.lookahead.push_front(token);
 		}
 		Some(self.lookahead.front().unwrap())
 	}
 
-	pub fn next(&mut self) -> Option<Token> {
+	pub fn next(&mut self) -> Token {
 		if let Some(token) = self.lookahead.pop_front() {
-			return Some(token);
+			return token;
 		}
 
 		loop {
 			let Some((_, c)) = self.chars.peek() else {
-				return None;
+				return Token {
+					kind: Kind::End,
+					span: Span::default(),
+				};
 			};
 
 			let token = unsafe { byte_handler(*c as u8, &mut self.chars) };
-			if token.is_none() {
-				continue;
+			match token {
+				Some(token) => return token,
+				_ => continue,
 			}
-
-			return token;
 		}
-	}
-}
-
-impl Iterator for Lexer<'_> {
-	type Item = Token;
-
-	fn next(&mut self) -> Option<Self::Item> {
-		self.next()
 	}
 }
 
@@ -67,12 +61,12 @@ mod test {
 		let mut lex = Lexer::new(source);
 
 		for &(ref kind, slice) in kinds.as_ref() {
-			let t = lex.next().unwrap();
+			let t = lex.next();
 			assert_eq!(t.kind, *kind);
 			assert_eq!(source[t.span.start..t.span.end], *slice);
 		}
 
-		assert!(lex.next().is_none());
+		assert_eq!(lex.next().kind, Kind::End);
 	}
 
 	#[test]
@@ -133,10 +127,20 @@ pub struct Span {
 	pub end: usize,
 }
 
+impl Span {
+	pub fn merge(self, other: Span) -> Span {
+		use std::cmp::max;
+		use std::cmp::min;
+		let start = min(self.start, other.start);
+		let end = max(self.end, other.end);
+		(start..end).into()
+	}
+}
+
 impl From<Span> for miette::LabeledSpan {
-    fn from(s: Span) -> Self {
-        miette::LabeledSpan::underline(s.start..s.end)
-    }
+	fn from(s: Span) -> Self {
+		miette::LabeledSpan::underline(s.start..s.end)
+	}
 }
 
 use std::ops::Range;
@@ -176,8 +180,8 @@ impl std::fmt::Display for Token {
 
 #[derive(Debug, Default, PartialEq, Eq, Clone)]
 pub enum Kind {
-	Invalid,
 	#[default]
+	Invalid,
 	End,
 	Skip,
 	String,
