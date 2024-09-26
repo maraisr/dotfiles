@@ -1,3 +1,9 @@
+use std::alloc::Allocator;
+use std::alloc::Layout;
+use std::ptr;
+
+use bumpalo::Bump;
+
 use lexer::Kind;
 use lexer::Lexer;
 
@@ -6,9 +12,8 @@ use crate::lexer::Span;
 use crate::lexer::Token;
 use crate::report;
 
-type Arena = bumpalo::Bump;
 // type BoxNode<'a, T> = Box<Node<'a, T>, &'a Arena>;
-type List<'a, T> = Vec<T, &'a Arena>;
+type List<'a, T> = Vec<T, &'a Bump>;
 
 #[derive(Debug)]
 pub struct Node<'a, T: 'a> {
@@ -27,7 +32,7 @@ impl<'a, T> std::ops::Deref for Node<'a, T> {
 
 #[derive(Debug)]
 pub enum Definition<'a> {
-	Task(Box<TaskDefinition<'a>, &'a Arena>)
+	Task(Box<TaskDefinition<'a>, &'a Bump>)
 }
 
 #[derive(Debug)]
@@ -44,7 +49,7 @@ pub struct Parser<'a> {
 
 	current: Token,
 
-	arena: &'a bumpalo::Bump,
+	arena: &'a Bump,
 }
 
 // TODO: Should this exist?
@@ -56,7 +61,7 @@ macro_rules! expect {
 }
 
 impl<'a> Parser<'a> {
-	pub fn new(source: &'a str, arena: &'a Arena) -> Self {
+	pub fn new(source: &'a str, arena: &'a Bump) -> Self {
 		let lexer = Lexer::new(source);
 		Self {
 			lexer,
