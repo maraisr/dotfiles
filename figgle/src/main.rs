@@ -4,7 +4,7 @@
 extern crate miette;
 extern crate thiserror;
 
-mod error;
+mod diagnostics;
 mod lexer;
 mod parser;
 
@@ -15,8 +15,10 @@ fn main() -> miette::Result<()> {
 		let buffer = std::fs::read_to_string(path).expect("Failed to read file");
 		// let mut arena = bumpalo::Bump::new();
 		let parser = parser::Parser::new(&buffer);
-		let ast = parser.parse()?;
-		println!("{ast:?}");
+		match parser.parse() {
+			Ok(ast) => println!("{ast:?}"),
+			Err(e) => return Err(e.with_source_code(buffer)),
+		}
 	}
 
 	Ok(())

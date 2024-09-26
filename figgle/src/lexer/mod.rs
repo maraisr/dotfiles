@@ -133,10 +133,10 @@ pub struct Span {
 	pub end: usize,
 }
 
-impl Into<miette::SourceSpan> for Span {
-	fn into(self) -> miette::SourceSpan {
-		miette::SourceSpan::new(self.start.into(), self.end - self.start)
-	}
+impl From<Span> for miette::LabeledSpan {
+    fn from(s: Span) -> Self {
+        miette::LabeledSpan::underline(s.start..s.end)
+    }
 }
 
 use std::ops::Range;

@@ -1,7 +1,8 @@
 use lexer::Kind;
 use lexer::Lexer;
 
-use crate::error::Result;
+use crate::report;
+use crate::diagnostics::Result;
 use crate::lexer::Token;
 
 pub type AST = Vec<Definition>;
@@ -19,30 +20,13 @@ pub struct TaskDefinition {
 
 pub struct Parser<'a> {
 	lexer: Lexer<'a>,
-	// TODO: can we do something like an Error factory? and enhance with source later?
-	source: String,
 	// arena: &'a mut bumpalo::Bump,
-}
-
-macro_rules! report {
-	($source:expr, $token:expr) => {{
-		let span = $token.span.clone();
-		let source = $source.clone();
-		Err(crate::error::Errors::ParsingError {
-			src: source,
-			token: $token,
-			span: span.into(),
-		})
-	}};
 }
 
 impl<'a> Parser<'a> {
 	pub fn new(source: &'a str) -> Self {
 		let lexer = Lexer::new(source);
-		Self {
-			lexer,
-			source: String::from(source),
-		}
+		Self { lexer }
 	}
 
 	#[inline]
@@ -57,11 +41,11 @@ impl<'a> Parser<'a> {
 
 	fn expect(&mut self, kind: Kind) -> Result<Token> {
 		let Some(token) = self.lexer.next() else {
-			// TODO: Yep no panic
-			panic!("test");
+			return Err(report!("Unexpected end of file"));
 		};
 		if token.kind != kind {
-			panic!("test");
+			let msg = format!("Expected {kind:?} got {:?}", token.kind);
+			return Err(report!(msg, token.span));
 		}
 		Ok(token)
 	}
@@ -99,7 +83,7 @@ impl<'a> Parser<'a> {
 			// 	return Ok(Definition::Var(self.expect(Kind::String)?));
 			// }
 			_ => {
-				return report!(self.source, token);
+				report!("Unexpected definition", token.span)
 			}
 		}
 	}
