@@ -106,7 +106,6 @@ mod test {
         assert_lex("123.456", [(Kind::Number, "123.456")]);
     }
 
-    #[ignore]
     #[test]
     fn keywords() {
         assert_lex(

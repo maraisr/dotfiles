@@ -52,13 +52,13 @@ macro_rules! consume_into {
             fn $id(l: &mut Source<'_>) -> Option<Token> {
                 let (i, _) = l.next()?;
                 if $kind == Kind::Skip {
-                	// TODO: Should we "skip" this token from appearing,
-                 	// or return it and handle it in the parser?
+                    // TODO: Should we "skip" this token from appearing,
+                    // or return it and handle it in the parser?
                     return None;
                 }
                 Some(Token {
                     kind: $kind,
-                    span: (i..i+1).into(),
+                    span: (i..i + 1).into(),
                 })
             }
             $id
@@ -70,10 +70,10 @@ consume_into!(EOF, Kind::End);
 consume_into!(ERR, Kind::Invalid);
 consume_into!(SKP, Kind::Skip);
 
-consume_into!(PIP, Kind::Pipe);		// |
-consume_into!(EQL, Kind::Eq);		// =
-consume_into!(BCL, Kind::LBrace);	// {
-consume_into!(BCR, Kind::RBrace);	// }
+consume_into!(PIP, Kind::Pipe); // |
+consume_into!(EQL, Kind::Eq); // =
+consume_into!(BCL, Kind::LBrace); // {
+consume_into!(BCR, Kind::RBrace); // }
 
 // "
 byte_handler!(QOD(source) {
@@ -124,21 +124,27 @@ byte_handler!(SLH(source) {
 });
 
 byte_handler!(IDT(source) {
-    source.next()?;
-    None
-    // TODO: can it be https://github.com/ratel-rust/ratel-core/blob/e55a1310ba69a3f5ce2a9a6eef643feced02ac08/ratel/src/source/util.rs#L2
-    // loop {
-    //     match source.peek() {
-    //         Some(c) => {
-    //             if (c as char).is_alphanumeric() {
-    //                 source.bump();
-    //             } else {
-    //                 return Kind::Symbol
-    //             }
-    //         },
-    //         _ => return Kind::Symbol
-    //     }
-    // }
+    let (start, c) = source.next()?;
+    let mut end = start;
+    // TODO: maybe we should pass the original source down, instead of allocating a new word.
+    let mut word = c.to_string();
+    while let Some((i, c)) = source.peek() {
+        if !c.is_alphanumeric() {
+            break;
+        }
+        end = *i;
+        word.push(*c);
+        source.next()?;
+    }
+
+    // TODO: maybe move this stuff into other files
+    let kind = match word.as_str() {
+        "task" => Kind::Task,
+        "var" => Kind::Var,
+        _ => Kind::Symbol
+    };
+
+    Some(Token { kind, span: (start..end+1).into()})
 });
 
 byte_handler!(UER(_source) {
