@@ -1,4 +1,5 @@
 #![feature(allocator_api)]
+#![feature(let_chains)]
 
 extern crate bumpalo;
 extern crate miette;

@@ -20,12 +20,12 @@ impl<'a> Lexer<'a> {
 		}
 	}
 
-	pub fn peek(&mut self) -> Option<&Token> {
+	pub fn peek(&mut self) -> &Token {
 		if self.lookahead.is_empty() {
 			let token = self.next();
 			self.lookahead.push_front(token);
 		}
-		Some(self.lookahead.front().unwrap())
+		self.lookahead.front().unwrap()
 	}
 
 	pub fn next(&mut self) -> Token {
