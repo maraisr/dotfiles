@@ -1,5 +1,6 @@
 #![feature(allocator_api)]
 #![feature(let_chains)]
+#![feature(type_alias_impl_trait)]
 
 use std::ops::Deref;
 

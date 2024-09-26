@@ -56,7 +56,7 @@ macro_rules! expect {
 }
 
 impl<'a> Parser<'a> {
-	pub fn new(source: &'a str, arena: &'a bumpalo::Bump) -> Self {
+	pub fn new(source: &'a str, arena: &'a Arena) -> Self {
 		let lexer = Lexer::new(source);
 		Self {
 			lexer,
