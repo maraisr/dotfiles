@@ -93,11 +93,11 @@ impl<'a> Parser<'a> {
 				let b = Box::new(task);
 				return Ok(Definition::TaskDefinition(b));
 			}
-			Kind::Symbol => {
-				self.next();
-				self.expect(Kind::Eq)?;
-				return Ok(Definition::Var(self.expect(Kind::String)?));
-			}
+			// Kind::Symbol => {
+			// 	self.next();
+			// 	self.expect(Kind::Eq)?;
+			// 	return Ok(Definition::Var(self.expect(Kind::String)?));
+			// }
 			_ => {
 				return report!(self.source, token);
 			}

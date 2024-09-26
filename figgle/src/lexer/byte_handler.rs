@@ -1,3 +1,9 @@
+// TODO
+// - Capturing the start and end of a token, can probably be nicer than mutating an `end`
+// - When we SKIP, can we still hoist the token, but ignore it in the parser?
+// - To check the symbol is a keyword, we need to read the char, can we just capture the start/end and read from source, than build a new string?
+// - This file should ideally just be calling methods on a Lexer, and not doing the work itself
+
 use std::iter::Peekable;
 use std::str::CharIndices;
 
@@ -116,7 +122,7 @@ byte_handler!(DIG(source) {
 // /
 byte_handler!(SLH(source) {
 	source.next()?;
-	 while let Some((_, c)) = source.peek() {
+	while let Some((_, c)) = source.peek() {
 		if c == &'\n' {
 			break;
 		}
