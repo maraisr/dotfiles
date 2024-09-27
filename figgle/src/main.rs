@@ -15,6 +15,7 @@ extern crate thiserror;
 mod diagnostics;
 mod lexer;
 mod parser;
+mod syntax;
 
 fn main() -> miette::Result<()> {
 	let args = std::env::args().collect::<Vec<String>>();

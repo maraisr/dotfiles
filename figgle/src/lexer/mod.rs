@@ -1,9 +1,10 @@
 mod byte_handler;
 
 use std::collections::VecDeque;
-use std::fmt::Debug;
 use std::iter::Peekable;
 use std::str::CharIndices;
+
+use crate::syntax::{Kind, Span, Token};
 
 use self::byte_handler::byte_handler;
 
@@ -116,84 +117,4 @@ mod test {
 			][..],
 		)
 	}
-}
-
-// ---
-
-#[derive(Default, Clone)]
-pub struct Span {
-	pub start: usize,
-	pub end: usize,
-}
-
-impl Span {
-	pub fn merge(self, other: &Span) -> Span {
-		use std::cmp::max;
-		use std::cmp::min;
-		let start = min(self.start, other.start);
-		let end = max(self.end, other.end);
-		(start..end).into()
-	}
-}
-
-impl From<Span> for miette::LabeledSpan {
-	fn from(s: Span) -> Self {
-		miette::LabeledSpan::underline(s.start..s.end)
-	}
-}
-
-use std::ops::Range;
-impl From<Range<usize>> for Span {
-	fn from(range: Range<usize>) -> Self {
-		Self {
-			start: range.start,
-			end: range.end,
-		}
-	}
-}
-
-impl Debug for Span {
-	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-		write!(f, "{}..{}", self.start, self.end)
-	}
-}
-
-// TODO: remove this clone
-#[derive(Default, Clone)]
-pub struct Token {
-	pub kind: Kind,
-	pub span: Span,
-}
-
-impl Debug for Token {
-	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-		f.debug_tuple("Token").field(&self.kind).field(&self.span).finish()
-	}
-}
-
-impl std::fmt::Display for Token {
-	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-		write!(f, "{:?}", self.kind)
-	}
-}
-
-#[derive(Debug, Default, PartialEq, Eq, Clone)]
-pub enum Kind {
-	#[default]
-	Invalid,
-	End,
-	Skip,
-	String,
-	Number,
-	Symbol,
-	// Fence,
-	// Punctor
-	// Comma,
-	Eq,
-	LBrace,
-	RBrace,
-	Pipe,
-	// Keywords
-	Task,
-	Var,
 }

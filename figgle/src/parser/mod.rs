@@ -1,16 +1,19 @@
 // TODO: Remove bumpalo fro this file directly, instead can we "teach it about an Allocator"
 
 use bumpalo::Bump;
-use lexer::Kind;
-use lexer::Lexer;
 
 use crate::diagnostics::Result;
-use crate::lexer::Span;
-use crate::lexer::Token;
 use crate::report;
+use crate::lexer::Lexer;
+use crate::syntax::Kind;
+use crate::syntax::Span;
+use crate::syntax::Token;
 
 type List<'a, T> = Vec<T, &'a Bump>;
 type Box<'a, T> = std::boxed::Box<T, &'a Bump>;
+
+#[derive(Debug)]
+pub struct AST<'a>(List<'a, DefinitionNode<'a>>);
 
 #[derive(Debug)]
 pub struct Node<'a, T: 'a> {
@@ -95,7 +98,7 @@ impl<'a> Parser<'a> {
 		Node { item, span }
 	}
 
-	pub fn parse(mut self) -> Result<List<'a, DefinitionNode<'a>>> {
+	pub fn parse(mut self) -> Result<AST<'a>> {
 		let mut ast: List<'a, DefinitionNode<'a>> = Vec::new_in(self.arena);
 
 		while self.peek().kind != Kind::End {
@@ -103,7 +106,7 @@ impl<'a> Parser<'a> {
 			ast.push(def);
 		}
 
-		Ok(ast)
+		Ok(AST(ast))
 	}
 
 	#[inline]
