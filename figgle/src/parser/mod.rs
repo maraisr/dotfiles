@@ -54,14 +54,6 @@ pub struct Parser<'a> {
 	arena: &'a Bump,
 }
 
-// TODO: Should this exist?
-macro_rules! expect {
-	($self:ident, $kind:expr) => {{
-		$self.expect($kind)?;
-		&$self.current
-	}};
-}
-
 impl<'a> Parser<'a> {
 	pub fn new(source: &'a str, arena: &'a Bump) -> Self {
 		let lexer = Lexer::new(source);
@@ -149,8 +141,9 @@ impl<'a> Parser<'a> {
 
 	#[inline]
 	fn parse_string_literal(&mut self) -> Result<Literal<'a>> {
-		let s = self.source; // WTF?? Why does this need to exist before the expect?
-		let token = expect!(self, Kind::String);
+		self.expect(Kind::String)?;
+		let s = self.source;
+		let token = &self.current;
 		let raw = read_span(&s, &token.span);
 		// Trim the quote marks.
 		let value = &raw[1..raw.len() - 1];
@@ -160,8 +153,9 @@ impl<'a> Parser<'a> {
 	// TODO: Validate this
 	#[inline]
 	fn parse_literal(&mut self) -> Result<Literal<'a>> {
-		let s = self.source; // WTF?? Why does this need to exist before the expect?
-		let token = expect!(self, Kind::Symbol);
+		self.expect(Kind::Symbol)?;
+		let s = self.source;
+		let token = &self.current;
 		let raw = read_span(&s, &token.span);
 		Ok(self.node(raw, token.span.clone()))
 	}
