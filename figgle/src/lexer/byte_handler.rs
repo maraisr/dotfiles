@@ -26,7 +26,7 @@ static BYTE_HANDLERS: [ByteHandler; 256] = [
 //  0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F    //
 	EOF, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, SKP, ERR, ERR, SKP, ERR, ERR, // 0
     ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, ERR, // 1
-	SKP, SKP, QOD, SKP, SKP, SKP, SKP, SKP, SKP, SKP, SKP, SKP, SKP, SKP, SKP, SLH, // 2
+	SKP, SKP, QOD, SKP, SKP, SKP, SKP, SKP, SKP, SKP, SKP, SKP, COM, SKP, SKP, SLH, // 2
 	DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, SKP, SKP, SKP, EQL, SKP, SKP, // 3
 	SKP, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, // 4
     IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, IDT, SKP, SKP, SKP, SKP, SKP, // 5
@@ -83,6 +83,7 @@ consume_into!(PIP, Kind::Pipe); // |
 consume_into!(EQL, Kind::Eq); // =
 consume_into!(BCL, Kind::LBrace); // {
 consume_into!(BCR, Kind::RBrace); // }
+consume_into!(COM, Kind::Comma); // ,
 
 // "
 byte_handler!(QOD(source) {

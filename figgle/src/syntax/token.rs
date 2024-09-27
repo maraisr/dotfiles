@@ -29,6 +29,7 @@ pub enum Kind {
 	Number,
 	Symbol,
 	Eq,
+	Comma,
 	LBrace,
 	RBrace,
 	Pipe,
