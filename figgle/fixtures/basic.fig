@@ -1,3 +1,5 @@
-// comments
+task "test" os = "Darwin", x = "t" {
+	some_key = "test"
 
-task "test"
+	fetch "https://google.com" | sh
+}

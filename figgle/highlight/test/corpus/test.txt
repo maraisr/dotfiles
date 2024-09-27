@@ -1,0 +1,23 @@
+==================
+Something
+==================
+
+task "name" os = "Darwin", other = "Other" {}
+
+---
+
+(source_file
+  (task_definition
+    (string)
+    (params
+        (param
+            (identifier)
+            (string)
+        )
+        (param
+            (identifier)
+            (string)
+        )
+    )
+    (block)
+))
