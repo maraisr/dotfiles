@@ -111,22 +111,20 @@ impl<'a> Parser<'a> {
 
 	#[inline]
 	fn parse_definition(&mut self) -> Result<DefinitionNode<'a>> {
-		match self.peek().kind {
+		let token = self.peek();
+		match token.kind {
 			Kind::Task => self.parse_task(),
-			_ => report!("Unexpected token", self.current.span.clone()),
+			_ => report!("Unexpected token", token.span.clone()),
 		}
 	}
 
 	#[inline]
 	fn parse_task(&mut self) -> Result<DefinitionNode<'a>> {
-		let token = self.expect(Kind::Task)?;
-		let span = token.span.clone();
-
+		let start = self.current.span.clone();
+		self.expect(Kind::Task)?;
 		let name = self.parse_string_literal()?;
-
-		let end = span.merge(&self.current.span);
+		let end = start.merge(&self.current.span);
 		let task = Box::new_in(TaskDefinition { name }, self.arena);
-
 		Ok(self.node(Definition::Task(task), end))
 	}
 
