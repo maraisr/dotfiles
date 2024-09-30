@@ -4,6 +4,8 @@ https://github.com/tsoding/ded/blob/master/src/lexer.c
 
 https://github.com/esoterra/claw-lang/blob/main/crates/ast/src/lib.rs
 
+https://bellard.org/quickjs/
+
 Output from tree-sitter
 ```
 (source_file [0, 0] - [5, 0]
