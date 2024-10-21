@@ -14,12 +14,6 @@ impl Span {
 	}
 }
 
-impl From<Span> for miette::LabeledSpan {
-	fn from(s: Span) -> Self {
-		miette::LabeledSpan::underline(s.start..s.end)
-	}
-}
-
 use std::ops::Range;
 impl From<Range<usize>> for Span {
 	fn from(range: Range<usize>) -> Self {

@@ -1,23 +1,18 @@
 use std::borrow::Cow;
 
-use miette::LabeledSpan;
-use miette::SourceCode;
+use crate::syntax::Span;
 
 pub type Result<T> = std::result::Result<T, Diagnostic>;
 
 pub struct Diagnostic(Box<Diag>);
 
 impl Diagnostic {
-	pub fn new<T>(message: Cow<'static, str>, labels: T) -> Self
+	pub fn new<T>(message: Cow<'static, str>, spans: T) -> Self
 	where
-		T: IntoIterator<Item = LabeledSpan>,
+		T: IntoIterator<Item = Span>,
 	{
-		let labels = labels.into_iter().map(Into::into).collect();
-		Self(Box::new(Diag { message, labels }))
-	}
-
-	pub fn with_source_code<T: SourceCode + Send + Sync + 'static>(self, code: T) -> miette::Error {
-		miette::Error::from(self).with_source_code(code)
+		let spans = spans.into_iter().map(Into::into).collect();
+		Self(Box::new(Diag { message, spans }))
 	}
 }
 
@@ -43,16 +38,11 @@ impl std::fmt::Debug for Diagnostic {
 	}
 }
 
-impl miette::Diagnostic for Diagnostic {
-	fn labels(&self) -> Option<Box<dyn Iterator<Item = LabeledSpan> + '_>> {
-		Some(Box::new(self.labels.iter().cloned()))
-	}
-}
-
 #[derive(Debug)]
 pub struct Diag {
 	pub message: Cow<'static, str>,
-	pub labels: Vec<LabeledSpan>,
+	// TODO: probs this is a vector of LabeledSpans
+	pub spans: Vec<Span>,
 }
 
 #[macro_export]

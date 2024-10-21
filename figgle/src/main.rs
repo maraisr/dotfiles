@@ -2,14 +2,7 @@
 #![feature(let_chains)]
 #![feature(type_alias_impl_trait)]
 
-use std::ops::Deref;
-
-use miette::SourceCode;
-use parser::read_span;
-use parser::Definition;
-
 extern crate bumpalo;
-extern crate miette;
 extern crate thiserror;
 
 mod diagnostics;
@@ -17,7 +10,7 @@ mod lexer;
 mod parser;
 mod syntax;
 
-fn main() -> miette::Result<()> {
+fn main() -> diagnostics::Result<()> {
 	let args = std::env::args().collect::<Vec<String>>();
 	if args.len() == 2 {
 		let path = &args[1];
@@ -42,7 +35,7 @@ fn main() -> miette::Result<()> {
 				// 	}
 				// }
 			}
-			Err(e) => return Err(e.with_source_code(buffer.clone())),
+			Err(e) => return Err(e),
 		};
 	}
 
