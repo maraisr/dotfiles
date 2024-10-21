@@ -15,6 +15,7 @@ impl Span {
 }
 
 use std::ops::Range;
+
 impl From<Range<usize>> for Span {
 	fn from(range: Range<usize>) -> Self {
 		Self {

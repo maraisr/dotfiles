@@ -35,15 +35,7 @@ pub enum Definition<'a> {
 	Task(Box<'a, TaskDefinition<'a>>),
 }
 
-#[derive(Debug)]
-pub struct TaskDefinition<'a> {
-	pub name: Literal<'a>,
-	// TODO: List of conditionals? Expressions?
-	pub args: List<'a, (Literal<'a>, Literal<'a>)>,
-}
-
 type Literal<'a> = Node<'a, &'a str>;
-type DefinitionNode<'a> = Node<'a, Definition<'a>>;
 
 pub struct Parser<'a> {
 	source: &'a str,
@@ -104,6 +96,45 @@ impl<'a> Parser<'a> {
 	}
 
 	#[inline]
+	fn parse_string_literal(&mut self) -> Result<Literal<'a>> {
+		self.expect(Kind::String)?;
+		let s = self.source;
+		let token = &self.current;
+		let raw = read_span(&s, &token.span);
+		// Trim the quote marks.
+		let value = &raw[1..raw.len() - 1];
+		Ok(self.node(value, token.span.clone()))
+	}
+
+	// TODO: Validate this
+	#[inline]
+	fn parse_literal(&mut self) -> Result<Literal<'a>> {
+		self.expect(Kind::Symbol)?;
+		let s = self.source;
+		let token = &self.current;
+		let raw = read_span(&s, &token.span);
+		Ok(self.node(raw, token.span.clone()))
+	}
+}
+
+// TODO: move this to a util
+#[inline]
+pub fn read_span<'a>(source: &'a str, span: &Span) -> &'a str {
+	&source[span.start..span.end]
+}
+
+// MARK: Task
+
+#[derive(Debug)]
+pub struct TaskDefinition<'a> {
+	pub name: Literal<'a>,
+	// TODO: List of conditionals? Expressions?
+	pub args: List<'a, (Literal<'a>, Literal<'a>)>,
+}
+type DefinitionNode<'a> = Node<'a, Definition<'a>>;
+
+impl<'a> Parser<'a> {
+	#[inline]
 	fn parse_definition(&mut self) -> Result<DefinitionNode<'a>> {
 		let token = self.peek();
 		match token.kind {
@@ -138,31 +169,4 @@ impl<'a> Parser<'a> {
 		let task = Box::new_in(TaskDefinition { name, args }, self.arena);
 		Ok(self.node(Definition::Task(task), end))
 	}
-
-	#[inline]
-	fn parse_string_literal(&mut self) -> Result<Literal<'a>> {
-		self.expect(Kind::String)?;
-		let s = self.source;
-		let token = &self.current;
-		let raw = read_span(&s, &token.span);
-		// Trim the quote marks.
-		let value = &raw[1..raw.len() - 1];
-		Ok(self.node(value, token.span.clone()))
-	}
-
-	// TODO: Validate this
-	#[inline]
-	fn parse_literal(&mut self) -> Result<Literal<'a>> {
-		self.expect(Kind::Symbol)?;
-		let s = self.source;
-		let token = &self.current;
-		let raw = read_span(&s, &token.span);
-		Ok(self.node(raw, token.span.clone()))
-	}
-}
-
-// TODO: move this to a util
-#[inline]
-pub fn read_span<'a>(source: &'a str, span: &Span) -> &'a str {
-	&source[span.start..span.end]
 }
