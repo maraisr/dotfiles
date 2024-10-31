@@ -4,7 +4,6 @@
 
 extern crate bumpalo;
 extern crate thiserror;
-extern crate nanoserde;
 
 mod diagnostics;
 mod lexer;
