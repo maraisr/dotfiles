@@ -31,7 +31,6 @@ brew "yq"
 brew "zoxide"
 
 brew "bun"
-brew "deno"
 brew "volta"
 
 brew "cloudflared"

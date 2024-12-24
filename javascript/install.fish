@@ -11,3 +11,6 @@ source ~/.config/fish/config.fish
 
 volta install node@latest
 volta install pnpm@latest
+
+curl -fsSL https://deno.land/install.sh | sh -s -- -y
+deno upgrade canary
