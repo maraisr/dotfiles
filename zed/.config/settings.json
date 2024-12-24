@@ -1,0 +1,61 @@
+{
+	"assistant": {
+		"default_model": {
+			"provider": "zed.dev",
+			"model": "claude-3-5-sonnet-20240620-fast-edit"
+		},
+		"version": "2"
+	},
+	"projects_online_by_default": false,
+	"show_completions_on_input": true,
+	"theme": "Catppuccin Mocha",
+	"buffer_font_size": 15,
+	"buffer_font_family": "Berkeley Mono Variable",
+	"buffer_font_features": {
+		"zero": true,
+		"ss02": true,
+		"ss03": true,
+		"ss08": true,
+		"ss10": true,
+		"ss11": true
+	},
+	"vim_mode": false,
+	"hard_tabs": true,
+	"tab_size": 4,
+	"format_on_save": "off",
+	"remove_trailing_whitespace_on_save": true,
+	"ensure_final_newline_on_save": true,
+	"autosave": "on_focus_change",
+	"preferred_line_length": 120,
+	"use_on_type_format": true,
+	"show_whitespaces": "selection",
+	"relative_line_numbers": false,
+	"show_wrap_guides": true,
+	"wrap_guides": [80, 120],
+	"inlay_hints": {
+		"enabled": false
+	},
+	"toolbar": {
+		"quick_actions": false
+	},
+	"tab_bar": {
+		"show_nav_history_buttons": false
+	},
+	"formatter": "auto",
+	"language_overrides": {
+		"YAML": {
+			"hard_tabs": false,
+			"tab_size": 2
+		}
+	},
+	"languages": {
+		"C++": {
+			"hard_tabs": false
+		}
+	},
+	"indent_guides": { "enabled": true, "coloring": "indent_aware" },
+	"language_servers": ["!vscode-css-language-server", "!tailwindcss-language-server", "..."],
+	"git": {
+		"inline_blame": { "enabled": false }
+	}
+}
