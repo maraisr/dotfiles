@@ -27,5 +27,16 @@ for f in $DOTFILES/*/conf.d/*.fish
 	ln -sf $f ~/.config/fish/conf.d/(basename $f)
 end
 
+for dir in $DOTFILES/*/.config
+    set parent (basename (dirname $dir))
+    mkdir -p ~/.config/$parent
+    for file in $dir/*
+        set filename (basename $file)
+        if test -e ~/.config/$parent/$filename
+            mv ~/.config/$parent/$filename ~/.config/$parent/$filename.backup
+        end
+        ln -sf $file ~/.config/$parent/$filename
+    end
+end
 
 mkdir -p $PROJECTS
