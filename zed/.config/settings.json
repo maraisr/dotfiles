@@ -1,13 +1,5 @@
 {
-	"assistant": {
-		"default_model": {
-			"provider": "zed.dev",
-			"model": "claude-3-5-sonnet-20240620-fast-edit"
-		},
-		"version": "2"
-	},
 	"projects_online_by_default": false,
-	"show_completions_on_input": true,
 	"theme": "Catppuccin Mocha",
 	"buffer_font_size": 15,
 	"buffer_font_family": "Berkeley Mono Variable",
@@ -19,43 +11,86 @@
 		"ss10": true,
 		"ss11": true
 	},
-	"vim_mode": false,
-	"hard_tabs": true,
-	"tab_size": 4,
-	"format_on_save": "off",
+
+	// ~ Behaviors
+	"show_signature_help_after_edits": true,
+	"show_completions_on_input": true,
 	"remove_trailing_whitespace_on_save": true,
 	"ensure_final_newline_on_save": true,
-	"autosave": "on_focus_change",
-	"preferred_line_length": 120,
 	"use_on_type_format": true,
-	"show_whitespaces": "selection",
+	"format_on_save": "off",
+	"formatter": "auto",
+	"autosave": "on_focus_change",
+	"cursor_shape": "block",
+	"vim_mode": false,
 	"relative_line_numbers": false,
+
+	// ~ Code Style
+	"hard_tabs": true,
+	"tab_size": 4,
+	"preferred_line_length": 120,
+	"show_whitespaces": "all",
 	"show_wrap_guides": true,
 	"wrap_guides": [80, 120],
+	"indent_guides": { "enabled": true, "coloring": "indent_aware" },
+
+	// ~ Assistance
+	"assistant": {
+		"default_model": {
+			"provider": "zed.dev",
+			"model": "claude-3-5-sonnet-20240620-fast-edit"
+		},
+		"enable_experimental_live_diffs": true,
+		"version": "2"
+	},
+
+	"languages": {
+		"YAML": {
+			"hard_tabs": false,
+			"tab_size": 2
+		},
+		"C++": {
+			"hard_tabs": false
+		}
+	},
 	"inlay_hints": {
 		"enabled": false
 	},
+
+	"git": {
+		"inline_blame": { "enabled": false }
+	},
+
+	"language_servers": ["!vscode-css-language-server", "!tailwindcss-language-server", "..."],
+
+	"terminal": {
+		"env": {
+			"EDITOR": "zed --wait"
+		}
+	},
+
+	// ~ UI
 	"toolbar": {
 		"quick_actions": false
 	},
 	"tab_bar": {
 		"show_nav_history_buttons": false
 	},
-	"formatter": "auto",
-	"language_overrides": {
-		"YAML": {
-			"hard_tabs": false,
-			"tab_size": 2
-		}
+	"project_panel": {
+		"button": true,
+		"dock": "right",
+		"git_status": true
 	},
-	"languages": {
-		"C++": {
-			"hard_tabs": false
-		}
+	"outline_panel": {
+		"dock": "right"
 	},
-	"indent_guides": { "enabled": true, "coloring": "indent_aware" },
-	"language_servers": ["!vscode-css-language-server", "!tailwindcss-language-server", "..."],
-	"git": {
-		"inline_blame": { "enabled": false }
+	"collaboration_panel": {
+		"dock": "left"
+	},
+	"notification_panel": {
+		"dock": "left"
+	},
+	"chat_panel": {
+		"dock": "left"
 	}
 }
