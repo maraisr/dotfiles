@@ -1,8 +1,8 @@
 {
 	"projects_online_by_default": false,
-	"theme": "Catppuccin Mocha",
+	"theme": "Base16 Everforest Dark Hard",
 	"buffer_font_size": 15,
-	"buffer_font_family": "Berkeley Mono Variable",
+	"buffer_font_family": "TX-02",
 	"buffer_font_features": {
 		"zero": true,
 		"ss02": true,
