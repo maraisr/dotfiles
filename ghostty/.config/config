@@ -1,6 +1,6 @@
 confirm-close-surface = false
 
-theme = catppuccin-mocha
+theme = dark:ayu,light:ayu_light
 
 window-colorspace = display-p3
 
