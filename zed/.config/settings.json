@@ -38,7 +38,7 @@
 	"assistant": {
 		"default_model": {
 			"provider": "zed.dev",
-			"model": "claude-3-5-sonnet-20240620-fast-edit"
+			"model": "claude-3-7-sonnet-thinking-latest"
 		},
 		"enable_experimental_live_diffs": true,
 		"version": "2"
@@ -52,9 +52,6 @@
 		"C++": {
 			"hard_tabs": false
 		}
-	},
-	"inlay_hints": {
-		"enabled": false
 	},
 
 	"git": {
@@ -92,5 +89,8 @@
 	},
 	"chat_panel": {
 		"dock": "left"
+	},
+	"inlay_hints": {
+		"enabled": false
 	}
 }
