@@ -6,6 +6,7 @@ tap "tdewolff/tap"
 
 brew "fish"
 
+brew "1password-cli"
 brew "bat"
 brew "cloc"
 brew "cmake"
