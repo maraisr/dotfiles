@@ -35,13 +35,12 @@
 	"indent_guides": { "enabled": true, "coloring": "indent_aware" },
 
 	// ~ Assistance
-	"assistant": {
+	"agent": {
+		"version": "2",
 		"default_model": {
 			"provider": "zed.dev",
 			"model": "claude-3-7-sonnet-thinking-latest"
-		},
-		"enable_experimental_live_diffs": true,
-		"version": "2"
+		}
 	},
 
 	"languages": {
