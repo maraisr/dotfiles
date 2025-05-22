@@ -24,6 +24,9 @@
 	"cursor_shape": "block",
 	"vim_mode": false,
 	"relative_line_numbers": false,
+	"minimap": {
+		"show": "always"
+	},
 
 	// ~ Code Style
 	"hard_tabs": true,
