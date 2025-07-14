@@ -1,5 +1,4 @@
 {
-	"projects_online_by_default": false,
 	"theme": "Ayu Dark",
 	"buffer_font_size": 15,
 	"buffer_font_family": "TX-02",
@@ -39,10 +38,9 @@
 
 	// ~ Assistance
 	"agent": {
-		"version": "2",
 		"default_model": {
 			"provider": "zed.dev",
-			"model": "claude-3-7-sonnet-thinking-latest"
+			"model": "claude-sonnet-4"
 		}
 	},
 
@@ -53,19 +51,14 @@
 		},
 		"C++": {
 			"hard_tabs": false
+		},
+		"CSS": {
+			"language_servers": ["csskit"]
 		}
 	},
 
 	"git": {
 		"inline_blame": { "enabled": false }
-	},
-
-	"language_servers": ["!vscode-css-language-server", "!tailwindcss-language-server", "..."],
-
-	"terminal": {
-		"env": {
-			"EDITOR": "zed --wait"
-		}
 	},
 
 	// ~ UI
