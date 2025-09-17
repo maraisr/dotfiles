@@ -1,6 +1,6 @@
 confirm-close-surface = false
 
-theme = dark:ayu,light:ayu_light
+theme = dark:Ayu,light:Ayu Light
 
 window-colorspace = display-p3
 
