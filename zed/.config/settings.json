@@ -1,5 +1,5 @@
 {
-	"theme": "Ayu Dark",
+	"theme": "Ayu Light",
 	"buffer_font_size": 15,
 	"buffer_font_family": "TX-02",
 	"buffer_font_features": {
@@ -22,7 +22,7 @@
 	"autosave": "on_focus_change",
 	"cursor_shape": "block",
 	"vim_mode": false,
-	"relative_line_numbers": false,
+	"relative_line_numbers": "disabled",
 	"minimap": {
 		"show": "always"
 	},
