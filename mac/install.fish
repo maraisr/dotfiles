@@ -13,3 +13,4 @@ touch ~/.hushlogin
 
 assume_sudo
 ./mac/defaults.sh
+./mac/timemachine.fish
