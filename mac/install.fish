@@ -1,4 +1,5 @@
 #!/usr/bin/env fish
+source ./script/utils.fish
 
 if test (uname) != Darwin
     exit
@@ -10,4 +11,5 @@ end
 
 touch ~/.hushlogin
 
+assume_sudo
 ./mac/defaults.sh

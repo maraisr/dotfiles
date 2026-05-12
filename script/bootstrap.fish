@@ -1,15 +1,7 @@
 #!/usr/bin/env fish
+source ./script/utils.fish
 
 set -Ux DOTFILES (pwd -P)
-
-function success
-	echo (set_color --bold green)'[ ✔ ]'(set_color normal) $argv
-end
-
-function abort
-	echo (set_color --bold yellow)'[ 𐄂 ]'(set_color normal) $argv
-	exit 1
-end
 
 for src in $DOTFILES/*/*.symlink
 	ln -sf $src ~/.(basename $src .symlink)
@@ -23,6 +15,7 @@ for installer in */install.fish
 end
 
 if ! grep (command -v fish) /etc/shells
+	assume_sudo
 	command -v fish | sudo tee -a /etc/shells
 		and success 'added fish to /etc/shells'
 		or abort 'setup /etc/shells'
@@ -33,6 +26,7 @@ test (which fish) = $SHELL
 	and success 'dotfiles installed/updated!'
 	and exit 0
 
+assume_sudo
 sudo chsh -s (which fish)
     and success set (fish --version) as the default shell
     or abort 'set fish as default shell'
