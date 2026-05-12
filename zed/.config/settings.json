@@ -23,6 +23,7 @@
 	"cursor_shape": "block",
 	"vim_mode": false,
 	"relative_line_numbers": "disabled",
+	"cli_default_open_behavior": "new_window",
 	"minimap": {
 		"show": "always"
 	},
@@ -38,9 +39,13 @@
 
 	// ~ Assistance
 	"agent": {
+		"dock": "right",
+		"default_profile": "write",
 		"default_model": {
 			"provider": "zed.dev",
-			"model": "claude-sonnet-4"
+			"model": "claude-sonnet-4-6",
+			"enable_thinking": true,
+			"effort": "medium"
 		}
 	},
 
@@ -87,5 +92,8 @@
 	},
 	"inlay_hints": {
 		"enabled": false
+	},
+	"git_panel": {
+		"dock": "left"
 	}
 }
