@@ -13,6 +13,10 @@ assume_sudo
 sudo tmutil setdestination "smb://marais:$encoded_pass@nas.rossouw.world/TimeMachine"
   or warn "failed to set Time Machine destination"
 
+# Auto-backup interval (seconds): 86400 = daily
+sudo defaults write /Library/Preferences/com.apple.TimeMachine AutoBackupInterval -int 86400
+  or warn "failed to set Time Machine interval"
+
 sudo tmutil enable
-  and success "Time Machine enabled, hourly auto-backup"
+  and success "Time Machine enabled, daily auto-backup"
   or warn "failed to enable Time Machine"
