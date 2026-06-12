@@ -8,6 +8,9 @@ set -Ux EDITOR vim
 set -Ux VISUAL $EDITOR
 
 set -Ux PROJECTS ~/dev
+mkdir -p $PROJECTS
+
+fish_add_path ~/.local/bin
 
 # =========
 # Functions
@@ -38,5 +41,3 @@ for dir in $DOTFILES/*/.config
         ln -sf $file ~/.config/$parent/$filename
     end
 end
-
-mkdir -p $PROJECTS
