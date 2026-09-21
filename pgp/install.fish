@@ -1,4 +1,5 @@
 #!/usr/bin/env fish
+source ./script/utils.fish
 
 if test (uname) != Darwin
     exit
@@ -12,3 +13,14 @@ grep -q "pinentry-program" ~/.gnupg/gpg-agent.conf || echo "pinentry-program "(w
 # ask password every 24hours only
 grep -q "default-cache-ttl" ~/.gnupg/gpg-agent.conf || echo "default-cache-ttl 86400" >> ~/.gnupg/gpg-agent.conf
 grep -q "max-cache-ttl" ~/.gnupg/gpg-agent.conf || echo "max-cache-ttl 86400" >> ~/.gnupg/gpg-agent.conf
+
+# import my pgp private key
+op read "op://Private/PGP/notesPlain" | gpg --batch --import
+or begin
+    warn "failed to import PGP key"
+    exit 0
+end
+
+printf 'B1938745C473F0EEE62C0593B87842CB66A230FF:6:\n' | gpg --batch --import-ownertrust
+    and success "PGP key imported with ultimate trust"
+    or warn "failed to set ultimate trust for PGP key"

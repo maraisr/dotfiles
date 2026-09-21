@@ -2,7 +2,7 @@
 source ./script/utils.fish
 
 set -l encoded_pass (\
-  op read --account TN3WPOEQTVANPMMIMOXOMXNNDM "op://Private/UNAS/password"\
+  op read "op://Private/UNAS/password"\
   | string escape --style=url)
 or begin
   warn "failed to read TimeMachine password from 1Password"

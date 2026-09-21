@@ -2,6 +2,8 @@
 
 set +e
 
+export OP_ACCOUNT=TN3WPOEQTVANPMMIMOXOMXNNDM
+
 if [ "$(uname)" == "Darwin" ]; then
     echo "+---------------------+";
     echo "+ Mac Setup           +";
