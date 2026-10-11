@@ -9,25 +9,26 @@ assume_sudo
 
 echo " ~› Require password immediately after sleep or screen saver begins"
 defaults write com.apple.screensaver askForPassword -int 1
+	or abort "failed to require a password after sleep"
 defaults write com.apple.screensaver askForPasswordDelay -int 0
-
-echo " ~› Disable the \"Are you sure you want to open this application?\" dialog"
-defaults write com.apple.LaunchServices LSQuarantine -bool false
+	or abort "failed to set the screen lock delay"
 
 # -----------------------------------
 # Power & Battery
 # -----------------------------------
 
-echo " ~› Unlock the hibernation image if an older install locked it"
-if test -e /private/var/vm/sleepimage
-	sudo chflags nouchg /private/var/vm/sleepimage
-end
+echo " ~› Enable wake for network access on every power source"
+sudo pmset -a womp 1
+	or abort "failed to enable wake for network access"
 
 echo " ~› Configure power management for battery power"
-sudo pmset -b lowpowermode 1 displaysleep 20 sleep 1 powernap 0 womp 0 standby 1 hibernatemode 3
+# On supported laptops, sleep 1 means one minute after display sleep.
+sudo pmset -b displaysleep 20 sleep 1 standby 1 hibernatemode 3
+	or abort "failed to configure battery power settings"
 
 echo " ~› Configure power management for charger power"
-sudo pmset -c lowpowermode 0 displaysleep 120 sleep 0 powernap 1 womp 0 standby 1 hibernatemode 3
+sudo pmset -c displaysleep 120 sleep 0 standby 1 hibernatemode 3
+	or abort "failed to configure charger power settings"
 
 # -----------------------------------
 # Performance
@@ -47,16 +48,15 @@ defaults write com.apple.dock "expose-group-by-app" -bool true
 echo " ~› Don't animate opening applications from the Dock"
 defaults write com.apple.dock launchanim -bool false
 
-echo " ~› Enable subpixel font rendering on non-Apple LCDs"
-# https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
-defaults write NSGlobalDomain AppleFontSmoothing -int 1
-
 # -----------------------------------
 # UI & Appearance
 # -----------------------------------
 
+echo " ~› Prefer light font smoothing"
+defaults write NSGlobalDomain AppleFontSmoothing -int 1
+
 echo " ~› Appearance: Auto (light/dark follows time of day)"
-defaults delete NSGlobalDomain AppleInterfaceStyle >/dev/null 2>&1
+defaults delete NSGlobalDomain AppleInterfaceStyle
 defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool true
 
 #  Accent colour
@@ -80,7 +80,7 @@ defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool tru
 echo " ~› Appearance: UI colours"
 # Colour accent (uncomment, and remove the delete lines below it)
 # defaults write -globalDomain AppleAccentColor -int 6
-defaults delete -globalDomain AppleAccentColor >/dev/null 2>&1
+defaults delete -globalDomain AppleAccentColor
 
 defaults write -globalDomain AppleAquaColorVariant -int 1
 defaults write -globalDomain AppleHighlightColor -string "1.000000 0.749020 0.823529 Pink"
@@ -124,9 +124,6 @@ defaults write -g WebAutomaticTextReplacementEnabled -bool true
 
 echo " ~› Enable auto-correct"
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
-
-echo " ~› Turn off keyboard illumination when computer is not used for 5 minutes"
-defaults write com.apple.BezelServices kDimTime -int 300
 
 # Home/End button remapped to begin/end of lines
 mkdir -p ~/Library/KeyBindings/
@@ -201,10 +198,6 @@ defaults write com.apple.finder FXPreferredGroupBy -string "Kind"
 # Kind, Name, Application, Date Last Opened,
 # Date Added, Date Modified, Date Created, Size, Tags, None
 
-echo " ~› Removing duplicates in the 'Open With' menu"
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister \
-	-kill -r -domain local -domain system -domain user
-
 # -----------------------------------
 # Dock & Mission Control
 # -----------------------------------
@@ -229,23 +222,16 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 # Networking & System Services
 # -----------------------------------
 
-echo " ~› Use AirDrop over every interface"
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
-
 echo " ~› Prevent Time Machine from prompting to use new hard drives as backup volume"
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
-echo " ~› Enable the automatic update check"
-defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+echo " ~› Download macOS updates automatically"
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool true
+	or abort "failed to enable automatic macOS update downloads"
 
-echo " ~› Check for software updates daily, not just once per week"
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
-
-echo " ~› Download newly available updates in background"
-defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
-
-echo " ~› Turn on app auto-update"
-defaults write com.apple.commerce AutoUpdate -bool true
+echo " ~› Update App Store apps automatically"
+sudo defaults write /Library/Preferences/com.apple.commerce AutoUpdate -bool true
+	or abort "failed to enable automatic App Store updates"
 
 echo " ~› Play iOS charging sound when power is connected"
 defaults write com.apple.PowerChime ChimeOnAllHardware -bool true
@@ -254,9 +240,6 @@ defaults write com.apple.PowerChime ChimeOnAllHardware -bool true
 # -----------------------------------
 # Printing
 # -----------------------------------
-
-echo " ~› Automatically quit printer app once the print jobs complete"
-defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
 echo " ~› Expand print panel by default"
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
@@ -269,8 +252,7 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 echo " ~› Hide Safari's bookmark bar"
 defaults write com.apple.Safari ShowFavoritesBar -bool false
 
-echo " ~› Set up Safari for development"
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+echo " ~› Enable Safari web development features"
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
@@ -312,21 +294,3 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 0
 echo " ~› Sort Activity Monitor results by CPU usage"
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
-
-echo " ~› Enable the WebKit Developer Tools in the Mac App Store"
-defaults write com.apple.appstore WebKitDeveloperExtras -bool true
-
-# -----------------------------------
-# GPG
-# -----------------------------------
-
-echo " ~› Disable signing emails by default"
-defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault -bool false
-
-# -----------------------------------
-# Reboot everything
-# -----------------------------------
-
-for app in "Activity Monitor" Safari Mail Dock Terminal SystemUIServer Finder cfprefsd
-	killall $app >/dev/null 2>&1
-end

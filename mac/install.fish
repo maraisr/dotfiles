@@ -14,3 +14,4 @@ touch ~/.hushlogin
 ./mac/touchid.fish
 ./mac/timemachine.fish
 ./mac/defaults.fish
+    or abort "failed to configure macOS defaults"
