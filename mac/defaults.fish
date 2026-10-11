@@ -15,25 +15,23 @@ echo " ~› Disable the \"Are you sure you want to open this application?\" dial
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # -----------------------------------
-# Performance
+# Power & Battery
 # -----------------------------------
 
-echo " ~› Disable hibernation (speeds up entering sleep mode)"
-sudo pmset -a hibernatemode 0
+echo " ~› Unlock the hibernation image if an older install locked it"
+if test -e /private/var/vm/sleepimage
+	sudo chflags nouchg /private/var/vm/sleepimage
+end
 
-echo " ~› Remove the sleep image file to save disk space"
-sudo rm -f /private/var/vm/sleepimage
-echo " ~› Create a zero-byte file instead..."
-sudo touch /private/var/vm/sleepimage
-echo " ~› ...and make sure it can't be rewritten"
-sudo chflags uchg /private/var/vm/sleepimage
+echo " ~› Configure power management for battery power"
+sudo pmset -b lowpowermode 1 displaysleep 20 sleep 1 powernap 0 womp 0 standby 1 hibernatemode 3
 
-echo " ~› Disable the sudden motion sensor as it's not useful for SSDs"
-sudo pmset -a sms 0
+echo " ~› Configure power management for charger power"
+sudo pmset -c lowpowermode 0 displaysleep 120 sleep 0 powernap 1 womp 0 standby 1 hibernatemode 3
 
-echo " ~› Speed up wake from sleep to 24 hours from an hour"
-# http://www.cultofmac.com/221392/quick-hack-speeds-up-retina-macbooks-wake-from-sleep-os-x-tips/
-sudo pmset -a standbydelay 86400
+# -----------------------------------
+# Performance
+# -----------------------------------
 
 echo " ~› Set a really fast key repeat"
 defaults write NSGlobalDomain KeyRepeat -int 1
